@@ -5,6 +5,7 @@
 <h3>Composition de l'équipe</h3>
 
 <ul>
+<li> Daniel Duthoit </li>
 <li> Liza Al-Shikhley </li>
 <li> Louise Poughet </li>
 <li> Sarah Deborde </li>
