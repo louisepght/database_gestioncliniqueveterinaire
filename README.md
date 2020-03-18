@@ -1,6 +1,6 @@
 # Projet_NF18 : Travail en équipe sur le sujet Veto
 <br/>
-<h1>Composition de l'équipe</h1>
+<h1>Composition de l'équipe 1 du groupe D1</h1>
 
 <ul>
 <li> Daniel Duthoit </li>
