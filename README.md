@@ -1,8 +1,6 @@
-# Projet_NF18
+# Projet_NF18 : Travail en équipe sur le sujet Veto
 <br/>
-<h1> Travail en équipe sur le sujet Veto </h1>
-<h2>Gestion d'une clinique vétérinaire</h2>
-<h3>Composition de l'équipe</h3>
+<h1>Composition de l'équipe</h1>
 
 <ul>
 <li> Daniel Duthoit </li>
