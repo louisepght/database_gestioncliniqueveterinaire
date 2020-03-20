@@ -6,6 +6,6 @@
 
 Coucou
 
-Je m'appelle *Daniel*
+Je m'appelle **Daniel**
 
 Je _découvre_ l'info.
