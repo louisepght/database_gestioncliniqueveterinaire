@@ -33,3 +33,8 @@ Je _découvre_ l'info.
         <td>item 2</td>
     </td>
 </table>
+
+| header | header | header |
+| ------ | ------ | header |
+| cell | cell | cell |
+| cell | cell | cell |
