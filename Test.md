@@ -23,3 +23,11 @@ Je _découvre_ l'info.
         </ol>
    </li> 
 </ol>
+
+<table>
+    <th>Tête de tableau </th>
+    <tr>
+        <td>item 1</td>
+        <td>item 2</td>
+    </tr>
+</table>
