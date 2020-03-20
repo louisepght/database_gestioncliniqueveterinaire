@@ -35,6 +35,6 @@ Je _découvre_ l'info.
 </table>
 
 | header | header | header |
-| ------ | ------ | header |
+| ------ | ------ | ------ |
 | cell | cell | cell |
 | cell | cell | cell |
