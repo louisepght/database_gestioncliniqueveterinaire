@@ -38,3 +38,7 @@ Je _découvre_ l'info.
 | ------ | ------ | ------ |
 | cell | cell | cell |
 | cell | cell | cell |
+
+>  Le markdown, c'est pas simple.
+
+* [ ]  Apprendre le markdown
