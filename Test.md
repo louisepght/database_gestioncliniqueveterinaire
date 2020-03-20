@@ -2,6 +2,10 @@
 
 ## Un autre titre
 
-Coucou 
-Je m'appelle Daniel
-Je découvre l'info.
+### Encore un titre
+
+Coucou
+
+Je m'appelle *Daniel*
+
+Je _découvre_ l'info.
