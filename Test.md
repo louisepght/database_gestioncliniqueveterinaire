@@ -14,7 +14,12 @@ Je _découvre_ l'info.
 * Item 2
     * Item 3
 
-1. Item 1
-2. Item 2
-3. Item 3
-    A. Sous-item
+<ol>
+   <li>Item 1</li> 
+   <li>Item 2</li> 
+   <li>Item 3
+        <ol>
+            <li>Item 4</li>
+        </ol>
+   </li> 
+</ol>
