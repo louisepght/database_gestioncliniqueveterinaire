@@ -28,6 +28,8 @@ Je _découvre_ l'info.
     <th>Tête de tableau </th>
     <tr>
         <td>item 1</td>
-        <td>item 2</td>
     </tr>
+    <tr>
+        <td>item 2</td>
+    </td>
 </table>
