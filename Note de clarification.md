@@ -178,7 +178,8 @@ La posologie correspond à la quantité de médicaments qui doit être administr
 Elle sera caractérisée par *une quantité par jour* d’un médicament à consommer.
 
 
-##Utilisateurs de l'application 
+
+## Les utilisateurs de l'application
 
 ### L'administrateur de la clinique
 Il pourra gérer des patients (animaux), ses clients, son personnel soignant ainsi que les médicaments administrés. Pour cela, 
