@@ -176,3 +176,13 @@ Chaque médicament se caractérise par :
 La posologie correspond à la quantité de médicaments qui doit être administrée à un client donné dans le cadre d'un traitement. 
 
 Elle sera caractérisée par *une quantité par jour* d’un médicament à consommer.
+
+
+##Utilisateurs de l'application 
+
+### L'administrateur de la clinique
+Il pourra gérer des patients (animaux), ses clients, son personnel soignant ainsi que les médicaments administrés. Pour cela, 
+il pourra ajouter et mettre à jour la base de données, et accès à toutes les informations. Ainsi, il pourra obtenir des rapports 
+d'activité et des informations statistiques, comme les quantités de médicaments consommés, le nombre de traitement ou de procédure 
+effectuées dans la clinique, ou encore des statistiques sur les espèces d'animaux traités. 
+
