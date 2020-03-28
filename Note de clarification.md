@@ -189,6 +189,6 @@ d'activité et des informations statistiques, comme les quantités de médicamen
 effectuées dans la clinique, ou encore des statistiques sur les espèces d'animaux traités. 
 
 ### Les vétérinaires 
-Ils peuvent ajouter des données dans les classes suivantes : taille, poids, consultation, traitement, analyse, procédure et posologie. 
+Ils peuvent ajouter des données relatives aux éléments suivants : taille, poids, consultation, traitement, analyse, procédure et posologie. 
 Ils pourront également obtenir des informations du dossier médical du patient. 
 
