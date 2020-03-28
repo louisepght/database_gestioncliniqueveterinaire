@@ -124,7 +124,8 @@ Le dossier médical est propre à chaque patient de la clinique vétérinaire. I
 La taille du client est une donnée caractérisée par :
 - une *mesure* (optionnelle) exprimée en mètres
 
-- une *date et heure* de saisie dans la base de données 
+- une *date et heure* de saisie dans la base de données
+
 ### Le poids
 La poids du client est une donnée caractérisée par :
 - une *mesure* (optionnelle) exprimée en kilogrammes
@@ -186,4 +187,8 @@ Il pourra gérer des patients (animaux), ses clients, son personnel soignant ain
 il pourra ajouter et mettre à jour la base de données, et accès à toutes les informations. Ainsi, il pourra obtenir des rapports 
 d'activité et des informations statistiques, comme les quantités de médicaments consommés, le nombre de traitement ou de procédure 
 effectuées dans la clinique, ou encore des statistiques sur les espèces d'animaux traités. 
+
+### Les vétérinaires 
+Ils peuvent ajouter des données dans les classes suivantes : taille, poids, consultation, traitement, analyse, procédure et posologie. 
+Ils pourront également obtenir des informations du dossier médical du patient. 
 
