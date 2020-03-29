@@ -40,6 +40,7 @@ Dans le cadre de ce projet, plusieurs livrables sont attendus. Ceux-ci sont jalo
     
 
 	-  La note de clarification au format markdown
+	
     
 
 -   **Deuxième jalon (04 avril 2020) : Conception et développement**
@@ -61,6 +62,7 @@ La deuxième phase de notre projet vise à perfectionner les précédents livrab
     
 
 	-   La nouvelle note de clarification
+	
     
 
 -   **Deuxième jalon (20 juin 2020) : finalisation de la conception**
