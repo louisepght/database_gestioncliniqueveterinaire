@@ -37,10 +37,9 @@ Dans le cadre de ce projet, plusieurs livrables sont attendus. Ceux-ci sont jalo
 **Première phase :**
 
 -   **Premier jalon (28 mars 2020) : Analyse du besoin de l’utilisateur**
-    
+
 	-  La note de clarification au format markdown
-	
-    
+
 
 -   **Deuxième jalon (04 avril 2020) : Conception et développement**
     
@@ -60,8 +59,8 @@ La deuxième phase de notre projet vise à perfectionner les précédents livrab
 -   **Premier jalon (13 juin 2020) :**
 
 	-   La nouvelle note de clarification
-	
-    
+
+
 
 -   **Deuxième jalon (20 juin 2020) : finalisation de la conception**
 
