@@ -1,6 +1,6 @@
 # Note de clarification
 
- ## Contexte et objectifs
+## Contexte et objectifs
 
 La clinique vétérinaire Veto nous demande de mettre en place un système capable de gérer les patients, les clients, le personnel soignant et les médicaments administrés. Cette gestion sera assurée par l’administrateur de la clinique pour ajouter, modifier, rechercher ou supprimer les informations relatives aux patients, aux clients, au personnel et aux médicaments administrés.
 
@@ -175,7 +175,7 @@ Un client de la clinique est une personne possédant un animal de compagnie qui 
 Un client peut être le propriétaire d’un ou plusieurs patients de la clinique, sur une période de temps finie ou en cours. Toutefois, il ne peut être un membre du personnel de celle-ci.
 
 
-## Les assistants et les vétérinaires
+### Les assistants et les vétérinaires
 
 Les assistants et les vétérinaires de la clinique s’occupent des patients lors de consultations. Ils se caractérisent par :
 
@@ -194,11 +194,11 @@ Les assistants et les vétérinaires de la clinique s’occupent des patients lo
 
 Contrairement aux vétérinaires, les assistant(e)s ne sont pas autorisé(e)s à prescrire un traitement.
 
-## Le dossier médical
+### Le dossier médical
 
 Le dossier médical est propre à chaque patient de la clinique vétérinaire. Il permet de rassembler toutes les entrées réalisées par le personnel de la clinique et d’avoir une vue d’ensemble sur le cas d’un patient.
 
-## La taille
+### La taille
 
 La taille du client est une donnée caractérisée par :
 
@@ -207,7 +207,7 @@ La taille du client est une donnée caractérisée par :
 -   une *saisie (date et heure)* dans la base de données
     
 
-## Le poids
+### Le poids
 
 La poids du client est une donnée caractérisée par :
 
@@ -218,7 +218,7 @@ La poids du client est une donnée caractérisée par :
 
   
 
-## La consultation
+### La consultation
 
 Chaque patient peut assister à une ou plusieurs consultations. Celles-ci se caractérisent par les propriétés suivantes :
 
@@ -231,7 +231,7 @@ Chaque patient peut assister à une ou plusieurs consultations. Celles-ci se car
 -   la *saisie (date et heure)* de la consultation dans la base de données
     
 
-## Le traitement
+### Le traitement
 
 Dans le cadre de son suivi, un patient peut se voir administrer un ou plusieurs traitements. Ce traitement est caractérisé par :
 
@@ -244,7 +244,7 @@ Dans le cadre de son suivi, un patient peut se voir administrer un ou plusieurs 
 
 Un traitement ne peut être prescrit que par un vétérinaire de la clinique et comprend au minimum un médicament.
 
-## L’analyse
+### L’analyse
 
 Un patient de la clinique peut être sujet à une ou plusieurs analyses. Elle se caractérise par :
 
@@ -255,13 +255,13 @@ Un patient de la clinique peut être sujet à une ou plusieurs analyses. Elle se
 
 Un patient peut ne pas avoir eu d’analyses pendant son suivi.
 
-## La procédure
+### La procédure
 
 La procédure doit être réalisée sur le patient avec sa description. Elle se caractérise par :
 
   
 
--   son *nom*
+-  son *nom*
     
 -  sa *description*
     
@@ -279,7 +279,7 @@ Le médicament est le composé pharmaceutique qui sera administré au patient en
 -   un ensemble *d’effets*, présentés sous la forme d’une description.
     
 
-## La posologie
+### La posologie
 
 La posologie désigne la quantité d'un médicament précis à administrer à un patient donné. Elle est caractérisée par :
 
