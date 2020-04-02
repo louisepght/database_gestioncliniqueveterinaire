@@ -1,4 +1,3 @@
-
 CREATE TABLE Client (
 	Idc INTEGER PRIMARY KEY,
 	nom VARCHAR NOT NULL,
@@ -16,7 +15,7 @@ CREATE TABLE Patient (
 	date_naissance VARCHAR,
 	num_puce INTEGER, 
 	num_passeport VARCHAR, 
-	espece varchar,
+	espece famille,
 	proprietaire INTEGER,
 	dossier_medical INTEGER,
 	PRIMARY KEY(Idp),
@@ -33,15 +32,15 @@ CREATE TYPE hauteur AS ENUM ('petite', 'moyenne');
 CREATE TABLE Espece (
 	categorie famille UNIQUE NOT NULL, 
 	taille hauteur UNIQUE NOT NULL, 
-	PRIMARY KEY(categorie, taille),
+	PRIMARY KEY(categorie, taille)
 );
 
 
-
+//ERREUR: la contrainte de clé étrangère « patient_espece_fkey » ne peut pas être implémentée DETAIL: Les colonnes clés « espece » et « categorie » sont de types incompatibles : character varying et famille.
 
 CREATE TABLE Veterinaire (
 	IdV INTEGER PRIMARY KEY,
-	specialite VARCHAR, 
+	specialite famille, 
 	nom VARCHAR UNIQUE NOT NULL,
 	prenom VARCHAR UNIQUE NOT NULL, 
 	date_de_naissance DATE UNIQUE NOT NULL, 
@@ -51,7 +50,6 @@ CREATE TABLE Veterinaire (
 CHECK (num_telephone BETWEEN 0000000000 AND 9999999999)
 
 );
-
 
 
 CREATE TABLE Traitement (
@@ -69,7 +67,7 @@ CREATE TABLE Traitement (
 
 CREATE TABLE Assistant(
 	IdA INTEGER PRIMARY KEY, 
-	specialite VARCHAR NOT NULL, 
+	specialite famille, 
 	nom VARCHAR NOT NULL, 
 	prenom VARCHAR NOT NULL, 
 	date_de_naissance DATE NOT NULL, 
@@ -78,7 +76,6 @@ CREATE TABLE Assistant(
 	FOREIGN KEY (specialite) REFERENCES Espece(categorie),
 CHECK (num_telephone BETWEEN 0000000000 AND 9999999999)
 );
-
 
 
 CREATE TABLE Suivi_proprietaire (
@@ -161,7 +158,7 @@ CREATE TABLE Procedure (
 PRIMARY KEY (nom, dossier, date_heure_saisie) ,
 	FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
 	FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
-CHECK ((assistant NOT NULL) XOR (veterinaire NOT NULL)) 
+CHECK (((assistant NOT NULL) AND (veterinaire NOT NULL)) OR ((veterinaire NOT NULL) AND (assistant NULL))) 
 );
 
 
@@ -188,6 +185,13 @@ espece VARCHAR NOT NULL,
 FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
 FOREIGN KEY (espece) REFERENCES Espece(categorie)
 );
+
+CREATE TABLE (
+	nom_molecule VARCHAR PRIMARY KEY, 
+	effets VARCHAR) 
+);
+
+
 
 
 
