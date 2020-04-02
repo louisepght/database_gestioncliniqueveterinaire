@@ -1,0 +1,176 @@
+Création des tables : 
+
+CREATE TABLE Client (
+	Idc INTEGER PRIMARY KEY,
+	nom VARCHAR NOT NULL,
+	prenom VARCHAR NOT NULL,
+date_de_naissance DATE NOT NULL,
+adresse VARCHAR NOT NULL,
+num_tel INTEGER(10) NOT NULL,
+CHECK (num_tel BETWEEN 0000000000 AND 9999999999)
+);
+
+CREATE TABLE Patient (
+	Idp INTEGER ,
+	nom VARCHAR,
+	date_naissance VARCHAR,
+	num_puce INTEGER, 
+	num_passeport VARCHAR, 
+	espece varchar,
+	proprietaire INTEGER,
+	dossier_medical INTEGER,
+	FOREIGN KEY (espece) REFERENCES (Espece.categorie),
+	FOREIGN KEY (proprietaire) REFERENCES (Client.Idc),
+	FOREIGN KEY (dossier_medical) REFERENCES (Dossier_medical.Id),
+	CHECK ((date_naissance LIKE '[0-9]{4}') OR (date_naissance LIKE '[0-9]{2}/[0-9]{2}/[0-9]{4}') OR (date_naissance LIKE 'inconnue'))
+
+);
+
+CREATE TABLE Espece (
+	categorie VARCHAR, 
+	taille VARCHAR UNIQUE NOT NULL, 
+	(categorie, taille) PRIMARY KEY,
+CHECK (categorie in (‘rongeur’, ‘felin’, ‘ canidé’, ‘reptile’, ‘oiseau’,’autre’)),
+	CHECK (taille in (‘moyenne’, ‘grande’)
+);
+
+
+CREATE TABLE Veterinaire (
+	IdV INTEGER PRIMARY KEY,
+	specialite VARCHAR, 
+	nom VARCHAR UNIQUE NOT NULL,
+	prenom VARCHAR UNIQUE NOT NULL, 
+	date_de_naissance DATE UNIQUE NOT NULL, 
+	adresse VARCHAR, 
+	num_telephone INTEGER, 
+	FOREIGN KEY (specialite) REFERENCES (Espece.categorie),
+CHECK (num_tel BETWEEN 0000000000 AND 9999999999)
+
+);
+
+CREATE TABLE Traitement (
+	IdT INTEGER PRIMARY KEY, 
+	date_debut DATE, 
+	duree INTEGER, 
+	date_heure_saisie DATETIME, 
+	prescrit_par INTEGER, 
+	dossier INTEGER,
+	FOREIGN KEY (prescrit_par) REFERENCES (Veterinaire.IdV),
+	FOREIGN KEY (dossier) REFERENCES (Dossier_medical.Id)
+
+);
+
+CREATE TABLE Assistant(
+	IdA INTEGER PRIMARY KEY, 
+	specialite VARCHAR, 
+	nom VARCHAR, 
+	prenom VARCHAR, 
+	date_de_naissance DATE, 
+	adresse VARCHAR, 
+	num_telephone INTEGER,
+	FOREIGN KEY (specialite) REFERENCES (Espece.categorie)
+
+);
+
+
+CREATE TABLE Suivi_proprietaire (
+	client INTEGER, 
+	patient INTEGER, 
+	date_debut DATE NOT NULL, 
+	date_fin DATE, 
+	FOREIGN KEY (client) REFERENCES (Client.IdC), 
+	FOREIGN KEY (patient) REFERENCES (Patient.IdP)
+
+);
+
+CREATE TABLE Suivi_veterinaire (
+	patient INTEGER, 
+	veterinaire INTEGER, 
+	date_debut DATE NOT NULL, 
+	date_fin DATE NOT NULL, 
+	FOREIGN KEY (patient) REFERENCES (Patient.IdP),
+	FOREIGN KEY (veterinaire) REFERENCES (Veterinaire.IdV)
+
+);
+
+CREATE TABLE Consultation (
+	date DATE, 
+	observation VARCHAR, 
+	personnel INTEGER, 
+	date_heure_saisie TIMESTAMP, 
+	veto_consult INTEGER, 
+	dossier INTEGER, 
+	(date, date_heure_saisie) PRIMARY KEY, 
+	FOREIGN KEY (personnel) REFERENCES (Veterinaire.IdV),
+	FOREIGN KEY (veto_consult) REFERENCES (Veterinaire.IdV), 
+	FOREIGN KEY (dossier) REFERENCES (Dossier_medical.Id)
+ 
+);
+
+CREATE TABLE Taille (
+	mesure NUMERIC, 
+	date_heure_saisie TIMESTAMP, 
+	dossier_medical INTEGER, 
+	(mesure, date_heure_saisie) PRIMARY KEY, 
+	FOREIGN KEY (dossier_medical) REFERENCES (Dossier_medical.Id)
+
+);
+
+
+CREATE TABLE Poids (
+mesure FLOAT NOT NULL,
+date_heure_saisie date,
+dossier_medical REFERENCES Dossier_Medical(numero),
+
+); 
+
+CREATE TABLE Analyse(
+  resultat VARCHAR PRIMARY KEY,
+  date_heure_saisie TIMESTAMP,
+  dossier_medical INTEGER Dossier_medical(numero)),
+  CHECK (resultat LIKE 'https://%')
+
+);
+
+
+CREATE TABLE Posologie (
+	traitement INTEGER, 
+	medicament VARCHAR, 
+	quantite_par_jour INTEGER, 
+	FOREIGN KEY (traitement) REFERENCES Traitement(IdT), 
+	FOREIGN KEY (medicament) REFERENCES Medicament(nom_molecule), 
+);
+
+CREATE TABLES Procedure (
+	nom VARCHAR UNIQUE NOT NULL, 
+	description VARCHAR,
+	date_heure_saisie TIMESTAMP NOT NULL, 
+	assistant INTEGER UNIQUE, 
+	veterinaire INTEGER UNIQUE, 
+	dossier INTEGER, 
+	CHECK ( assistant XOR veterinaire) NOT NULL, 
+	FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
+	FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
+);
+
+Est_compatible(
+	medicament VARCHAR, 
+	espece VARCHAR,
+	FOREIGN KEY (medicament) REFERENCES Medicament(nom_molecule), 
+	FOREIGN KEY (espece) REFERENCES Espece(categorie), 
+); 
+
+Speveto (
+	veterinaire INTEGER, 
+	espece VARCHAR, 
+	FOREIGN KEY (veterinaire) REFERENCES (Veterinaire(IdV)), 
+	FOREIGN KEY (espece) REFERENCES (Espece(categorie)), 
+); 
+
+Speassis (
+	assistant INTEGER,
+espece VARCHAR, 
+FOREIGN KEY (assistant) REFERENCES (Assistant( IdA)), 
+FOREIGN KEY (espece) REFERENCES (Espece(categorie)), 
+);
+
