@@ -158,7 +158,7 @@ CREATE TABLE Procedure (
 PRIMARY KEY (nom, dossier, date_heure_saisie) ,
 	FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
 	FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
-CHECK (((assistant NOT NULL) AND (veterinaire NOT NULL)) OR ((veterinaire NOT NULL) AND (assistant NULL))) 
+CHECK (((assistant NULL) AND (veterinaire NOT NULL)) OR ((veterinaire NOT NULL) AND (assistant NULL))) 
 );
 
 
