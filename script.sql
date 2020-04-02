@@ -2,10 +2,24 @@ CREATE TABLE Client (
 	Idc INTEGER PRIMARY KEY,
 	nom VARCHAR NOT NULL,
 	prenom VARCHAR NOT NULL,
-date_de_naissance DATE NOT NULL,
-adresse VARCHAR NOT NULL,
-num_tel INTEGER NOT NULL,
-CHECK (num_tel BETWEEN 0000000000 AND 9999999999)
+    date_de_naissance DATE NOT NULL,
+    adresse VARCHAR NOT NULL,
+    num_tel INTEGER NOT NULL,
+    CHECK (num_tel BETWEEN 0000000000 AND 9999999999)
+);
+
+CREATE TYPE famille AS ENUM ('félin','canidé','reptile', 'rongeur', 'oiseau','autre');
+CREATE TYPE hauteur AS ENUM ('petite', 'moyenne');
+
+CREATE TABLE Espece (
+	categorie famille UNIQUE NOT NULL, 
+	taille hauteur UNIQUE NOT NULL, 
+	PRIMARY KEY(categorie, taille)
+);
+
+
+CREATE TABLE Dossier_medical(
+	Id INTEGER PRIMARY KEY
 );
 
 
@@ -26,17 +40,6 @@ CREATE TABLE Patient (
 );
 
 
-CREATE TYPE famille AS ENUM ('félin','canidé','reptile', 'rongeur', 'oiseau','autre');
-CREATE TYPE hauteur AS ENUM ('petite', 'moyenne');
-
-CREATE TABLE Espece (
-	categorie famille UNIQUE NOT NULL, 
-	taille hauteur UNIQUE NOT NULL, 
-	PRIMARY KEY(categorie, taille)
-);
-
-
-//ERREUR: la contrainte de clé étrangère « patient_espece_fkey » ne peut pas être implémentée DETAIL: Les colonnes clés « espece » et « categorie » sont de types incompatibles : character varying et famille.
 
 CREATE TABLE Veterinaire (
 	IdV INTEGER PRIMARY KEY,
@@ -47,7 +50,7 @@ CREATE TABLE Veterinaire (
 	adresse VARCHAR UNIQUE NOT NULL, 
 	num_telephone INTEGER, 
 	FOREIGN KEY (specialite) REFERENCES Espece(categorie),
-CHECK (num_telephone BETWEEN 0000000000 AND 9999999999)
+    CHECK (num_telephone BETWEEN 0000000000 AND 9999999999)
 
 );
 
@@ -74,8 +77,9 @@ CREATE TABLE Assistant(
 	adresse VARCHAR NOT NULL, 
 	num_telephone INTEGER,
 	FOREIGN KEY (specialite) REFERENCES Espece(categorie),
-CHECK (num_telephone BETWEEN 0000000000 AND 9999999999)
+    CHECK (num_telephone BETWEEN 0000000000 AND 9999999999)
 );
+
 
 
 CREATE TABLE Suivi_proprietaire (
@@ -125,19 +129,30 @@ CREATE TABLE Taille (
 
 
 CREATE TABLE Poids (
-mesure NUMERIC(3,1),
-date_heure_saisie date NOT NULL,
-dossier_medical REFERENCES Dossier_Medical(Id),
+    mesure NUMERIC(3,1),
+    date_heure_saisie date NOT NULL,
+    dossier_medical  INTEGER REFERENCES Dossier_medical(Id),
 	CHECK (mesure > -1)
 ); 
 
-CREATE TABLE Analyse(
+CREATE TABLE Analyses(
   resultat VARCHAR PRIMARY KEY,
-  date_heure_saisie TIMESTAMP NOT NULL,
+  date_heure_saisie TIMESTAMP,
   dossier_medical INTEGER REFERENCES Dossier_medical(Id),
-  CHECK (resultat LIKE 'https://%')
+  CHECK (SUBSTR(resultat,1,8) ='https://')
 );
 
+CREATE TABLE Medicament (
+	nom_molecule VARCHAR PRIMARY KEY, 
+	effets VARCHAR NOT NULL
+);
+
+CREATE TABLE Est_compatible(
+	medicament VARCHAR NOT NULL, 
+	espece famille NOT NULL,
+	FOREIGN KEY (medicament) REFERENCES Medicament(nom_molecule), 
+	FOREIGN KEY (espece) REFERENCES Espece(categorie)
+); 
 
 CREATE TABLE Posologie (
 	traitement INTEGER, 
@@ -155,25 +170,16 @@ CREATE TABLE Procedure (
 	assistant INTEGER UNIQUE, 
 	veterinaire INTEGER UNIQUE, 
 	dossier INTEGER, 
-PRIMARY KEY (nom, dossier, date_heure_saisie) ,
+    PRIMARY KEY (nom, dossier, date_heure_saisie) ,
 	FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
 	FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
-CHECK (((assistant NULL) AND (veterinaire NOT NULL)) OR ((veterinaire NOT NULL) AND (assistant NULL))) 
+    CHECK (((assistant IS NULL) AND (veterinaire IS NOT NULL)) OR ((assistant IS NOT NULL) AND (veterinaire IS NULL))) 
 );
-
-
-CREATE TABLE Est_compatible(
-	medicament VARCHAR NOT NULL, 
-	espece VARCHAR NOT NULL,
-	FOREIGN KEY (medicament) REFERENCES Medicament(nom_molecule), 
-	FOREIGN KEY (espece) REFERENCES Espece(categorie)
-); 
-
 
 
 CREATE TABLE Speveto (
 	veterinaire INTEGER, 
-	espece VARCHAR NOT NULL, 
+	espece famille NOT NULL, 
 	FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
 	FOREIGN KEY (espece) REFERENCES Espece(categorie)
 );
@@ -181,17 +187,10 @@ CREATE TABLE Speveto (
 
 CREATE TABLE Speassis (
 	assistant INTEGER,
-espece VARCHAR NOT NULL, 
-FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
-FOREIGN KEY (espece) REFERENCES Espece(categorie)
+    espece famille NOT NULL, 
+    FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
+    FOREIGN KEY (espece) REFERENCES Espece(categorie)
 );
-
-CREATE TABLE (
-	nom_molecule VARCHAR PRIMARY KEY, 
-	effets VARCHAR) 
-);
-
-
 
 
 
