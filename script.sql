@@ -109,10 +109,10 @@ CREATE TABLE Consultation (
 	date_heure_saisie TIMESTAMP, 
 	veto_consult INTEGER, 
 	dossier INTEGER, 
-	PRIMARY KEY (date, date_heure_saisie) , 
-	FOREIGN KEY (personnel) REFERENCES Veterinaire(IdV),
-	FOREIGN KEY (veto_consult) REFERENCES Veterinaire(IdV), 
-	FOREIGN KEY (dossier) REFERENCES Dossier_medical(Id)
+    PRIMARY KEY (date, date_heure_saisie) , 
+    FOREIGN KEY (personnel) REFERENCES Veterinaire(IdV),
+    FOREIGN KEY (veto_consult) REFERENCES Veterinaire(IdV), 
+    FOREIGN KEY (dossier) REFERENCES Dossier_medical(Id)
  
 );
 
@@ -123,7 +123,7 @@ CREATE TABLE Taille (
 	date_heure_saisie TIMESTAMP, 
 	dossier_medical INTEGER REFERENCES Dossier_medical(Id), 
 	PRIMARY KEY (mesure, date_heure_saisie) , 
-	CHECK (mesure > -1)
+    CHECK (mesure > -1)
 );
 
 
@@ -132,7 +132,7 @@ CREATE TABLE Poids (
     mesure NUMERIC(3,1),
     date_heure_saisie date NOT NULL,
     dossier_medical  INTEGER REFERENCES Dossier_medical(Id),
-	CHECK (mesure > -1)
+    CHECK (mesure > -1)
 ); 
 
 CREATE TABLE Analyses(
@@ -160,7 +160,7 @@ CREATE TABLE Posologie (
 	quantite_par_jour INTEGER, 
 	FOREIGN KEY (traitement) REFERENCES Traitement(IdT), 
 	FOREIGN KEY (medicament) REFERENCES Medicament(nom_molecule), 
-	CHECK (quantite_par_jour > 0)
+    CHECK (quantite_par_jour > 0)
 );
 
 CREATE TABLE Procedure (
