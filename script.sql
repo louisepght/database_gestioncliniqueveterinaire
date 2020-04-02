@@ -19,7 +19,7 @@ CREATE TABLE Espece (
 
 
 CREATE TABLE Dossier_medical(
-	Id INTEGER PRIMARY KEY
+Id INTEGER PRIMARY KEY
 );
 
 
@@ -192,10 +192,6 @@ CREATE TABLE Speassis (
     FOREIGN KEY (espece) REFERENCES Espece(categorie)
 );
 
-
-
-
- 
 
 	
 	
