@@ -24,19 +24,19 @@ CREATE TABLE Dossier_medical(
 
 
 CREATE TABLE Patient (
-	Idp INTEGER ,
-	nom VARCHAR,
-	date_naissance VARCHAR,
-	num_puce INTEGER, 
-	num_passeport VARCHAR, 
-	espece famille,
-	proprietaire INTEGER,
-	dossier_medical INTEGER,
-	PRIMARY KEY(Idp),
-	FOREIGN KEY (espece) REFERENCES Espece(categorie),
-	FOREIGN KEY (proprietaire) REFERENCES Client(Idc),
-	FOREIGN KEY (dossier_medical) REFERENCES Dossier_medical(Id),
-	CHECK ((date_naissance LIKE '[0-9]{4}') OR (date_naissance LIKE '[0-9]{2}/[0-9]{2}/[0-9]{4}') OR (date_naissance LIKE 'inconnue'))
+    Idp INTEGER,
+    nom VARCHAR,
+    date_naissance VARCHAR,
+    num_puce INTEGER, 
+    num_passeport VARCHAR, 
+    espece famille,
+    proprietaire INTEGER,
+    dossier_medical INTEGER,
+    PRIMARY KEY(Idp),
+    FOREIGN KEY (espece) REFERENCES Espece(categorie),
+    FOREIGN KEY (proprietaire) REFERENCES Client(Idc),
+    FOREIGN KEY (dossier_medical) REFERENCES Dossier_medical(Id),
+    CHECK ((date_naissance LIKE '[0-9]{4}') OR (date_naissance LIKE '[0-9]{2}/[0-9]{2}/[0-9]{4}') OR (date_naissance LIKE 'inconnue'))
 );
 
 
@@ -164,29 +164,29 @@ CREATE TABLE Posologie (
 );
 
 CREATE TABLE Procedure (
-	nom VARCHAR NOT NULL, 
-	description VARCHAR NOT NULL,
-	date_heure_saisie TIMESTAMP NOT NULL, 
-	assistant INTEGER UNIQUE, 
-	veterinaire INTEGER UNIQUE, 
-	dossier INTEGER, 
+    nom VARCHAR NOT NULL, 
+    description VARCHAR NOT NULL,
+    date_heure_saisie TIMESTAMP NOT NULL, 
+    assistant INTEGER UNIQUE, 
+    veterinaire INTEGER UNIQUE, 
+    dossier INTEGER, 
     PRIMARY KEY (nom, dossier, date_heure_saisie) ,
-	FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
-	FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
+    FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
+    FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
     CHECK (((assistant IS NULL) AND (veterinaire IS NOT NULL)) OR ((assistant IS NOT NULL) AND (veterinaire IS NULL))) 
 );
 
 
 CREATE TABLE Speveto (
-	veterinaire INTEGER, 
-	espece famille NOT NULL, 
-	FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
-	FOREIGN KEY (espece) REFERENCES Espece(categorie)
+    veterinaire INTEGER, 
+    espece famille NOT NULL, 
+    FOREIGN KEY (veterinaire) REFERENCES Veterinaire(IdV), 
+    FOREIGN KEY (espece) REFERENCES Espece(categorie)
 );
 
 
 CREATE TABLE Speassis (
-	assistant INTEGER,
+    assistant INTEGER,
     espece famille NOT NULL, 
     FOREIGN KEY (assistant) REFERENCES Assistant(IdA), 
     FOREIGN KEY (espece) REFERENCES Espece(categorie)
