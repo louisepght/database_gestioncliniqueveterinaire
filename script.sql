@@ -1,7 +1,7 @@
 CREATE TABLE Client (
-	Idc INTEGER PRIMARY KEY,
-	nom VARCHAR NOT NULL,
-	prenom VARCHAR NOT NULL,
+    Idc INTEGER PRIMARY KEY,
+    nom VARCHAR NOT NULL,
+    prenom VARCHAR NOT NULL,
     date_de_naissance DATE NOT NULL,
     adresse VARCHAR NOT NULL,
     num_tel INTEGER NOT NULL,
