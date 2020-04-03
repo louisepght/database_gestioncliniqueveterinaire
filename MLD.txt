@@ -1,0 +1,64 @@
+Client(nom : VARCHAR, prenom: VARCHAR, date_de_naissance: DATE, adresse: VARCHAR, #num_tel: INTEGER) 
+avec num_tel clé, nom, prenom, date_de_naissance, adresse NOT NULL.
+// On considère qu’un client n’a qu’un seul numéro de téléphone 
+
+Patient(#IdP : INTEGER, nom: VARCHAR, date_naissance: VARCHAR, num_puce: INTEGER, num_passeport: VARCHAR, #espece=> Espece.nom, #proprietaire => Client.num_tel, #dossier_medical =>Dossier_medical.Id) 
+avec IdP clé, nom et date_naissance NOT NULL, num_puce et num_passeport UNIQUE.
+//On ajoute une clé étrangère car aucune clé potentielle et le num_puce et num_passeport ne sont pas obligatoires. 
+
+Suivi_propriétaire (#client => Client.num_tel, #patient => Patient.IdP,  date_debut: DATE, date_fin: DATE)
+avec (client, patient) KEY et date_debut NOT NULL.
+//à expliquer 
+
+Espece (categorie: ENUM , taille: ENUM)
+avec categorie et taille UNIQUE et NOT NULL, et (categorie, taille) clé.
+
+Veterinaire (#num_telephone: INTEGER, specialite=> Espece.categorie, nom: VARCHAR, prenom: VARCHAR, date_de_naissance: DATE, adresse: VARCHAR) 
+avec num_telephone clé ET (nom, prénom, date_de_naissance, adresse) UNIQUE et NOT NULL.
+//Chaque vétérinaire n’a qu’un et un seul numéro de téléphone professionnel dans la clinique
+Speveto (#veterinaire => Veterinaire.IdV; #espece => Espece.categorie)
+Suivi_veterinaire (#patient => Patient.IdP; #veterinaire => Veterinaire.num_telephone, date_debut : DATE; date_fin : DATE)
+avec (patient, veterinaire) KEY et date_debut NOT NULL
+
+Assistant (#num_telephone: INTEGER, nom: VARCHAR, prenom: VARCHAR, date_de_naissance: DATE, adresse: VARCHAR) 
+avec num_telephone KEY, (nom, prénom, date_de_naissance, adresse) UNIQUE et NOT NULL.
+Speassis (#assistant => Assistant.IdA; #espece => Espece)
+
+Traitement(#IdT : INTEGER, date_debut: DATE, duree: INTEGER, date_heure_saisie: DATETIME, #prescrit_par => Veterinaire.num_telephone, #dossier => Dossier_medical.Id)
+avec IdT KEY, date_heure_saisie NOT NULL.
+//Nous faisons le choix d’ajouter une clé artificielle car c’est le seul moyen de différencier les traitements.
+
+Consultation (#date: DATE, observation: VARCHAR; #date_heure_saisie: DATATIME, #veterinaire => Veterinaire.num_telephone; #dossier => Dossier_medical.Id) 
+avec (date, #dossier) KEY 
+//On considère qu’on a une seule consultation par jour et par patient
+
+Taille (#numero integer, mesure: FLOAT, date_heure_saisie: TIMESTAMP, #dossier_medical => Dossier_Medical.Id)
+avec numero KEY
+// On ajoute une clé artificielle car on suppose possible l’entrée de plusieurs mesures en même temps dans le dossier médical
+
+
+Poids (#numero integer, mesure: FLOAT, date_heure_saisie: TIMESTAMP, #dossier_medical => Dossier_Medical.Id)
+avec numero KEY
+// On ajoute une clé artificielle car on suppose possible l’entrée de plusieurs mesures en même temps dans le dossier médical
+
+
+Dossier_medical(#Id: INTEGER)
+avec Id KEY. 
+// Clé artificielle car nous n’avons aucun autre attribut
+
+Analyses (#resultat : VARCHAR, date_heure_saisie : TIMESTAMP, #dossier_medical => Dossier_medical.id)
+avec resultat clé, date_heure_saisie NOT NULL, et dossier_medical UNIQUE et NOT NULL
+// On aurait pu avoir plusieurs analyses pour un même dossier médical
+
+Posologie(#traitement => Traitement.IdT, #medicament=> Medicament.nom_molecule, quantite_par_jour: INTEGER)
+avec (traitement, medicament) clé
+
+Procedure(#nom : VARCHAR; description : VARCHAR; date_heure_saisie : TIMESTAMP, #assistant=>Assistant.IdA; #veterinaire => Veterinaire.IdV; #dossier=> Dossier_medical.Id) 
+avec nom, assistant, veterinaire UNIQUE, (nom, date_heure_saisie) NOT NULL et ((assistant NOT NULL) XOR (veterinaire not NULL))
+
+Médicament (#nom_molecule : string, effets: STRING)
+avec nom_molecule KEY.
+
+Est-compatible (#medicament => Medicament.Id, #espece_nom => Espece.categorie, #espece_taille => Espece.taille) 
+
+//transformation d’une association N:M
