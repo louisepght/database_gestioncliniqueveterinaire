@@ -119,7 +119,7 @@ L’architecture du projet repose sur plusieurs dispositifs :
 
 En interne, l’équipe communiquera par le biais de Mattermost, avec des réunions planifiées sur Jitsi ou Zoom.
 
-##Fonctionnalités du système
+## Fonctionnalités du système
 
 Le système que nous allons créer doit être capable de gérer les patients, les clients et le personnel soignant de la clinique ainsi que les médicaments qui y sont administrés.
 Nous souhaitons que ce système ait des fonctionnalités diverses telles que :
