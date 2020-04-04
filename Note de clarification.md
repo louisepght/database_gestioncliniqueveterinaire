@@ -119,6 +119,18 @@ L’architecture du projet repose sur plusieurs dispositifs :
 
 En interne, l’équipe communiquera par le biais de Mattermost, avec des réunions planifiées sur Jitsi ou Zoom.
 
+##Fonctionnalités du système
+
+Le système que nous allons créer doit être capable de gérer les patients, les clients et le personnel soignant de la clinique ainsi que les médicaments qui y sont administrés.
+Nous souhaitons que ce système ait des fonctionnalités diverses telles que :
+
+-   Possibilité de faire des requêtes sur la base de données pour consulter des dossiers médicaux, des traitements prescrits, etc.
+    
+-   Possibilité de modifier/ajouter/supprimer des éléments de la base de données : tenue à jour des clients, du personnel, etc. pour usage interne
+    
+-   Possibilité de réaliser des statistiques sur des clients,  des patients, etc.
+    
+
 ## Définition des objets, de leurs propriétés et de leurs contraintes
 
 Nous allons dans cette section définir les différents objets de notre base de données ainsi que leurs propriétés.
