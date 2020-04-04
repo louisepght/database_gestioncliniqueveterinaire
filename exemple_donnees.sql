@@ -1,7 +1,7 @@
 INSERT INTO Client
-VALUES ('0698723654', 'Dupont', 'Jean', '1970-01-13', 'Rue des Oliviers, nº5, 60200, Compiègne'),
-('0667221257', 'Leroy', 'Paul', '1968-02-24', 'Rue de la Résistance, nº12, 60200, Compiègne'),
-('0798723654', 'Langlois', 'Claire', '1990-08-30', 'Rue des Veneurs, nº4, 60200, Compiègne');
+VALUES ('0698723654', 'Bloy', 'Louise', '1970-01-13', 'Rue des Oliviers, nº5, 60200, Compiègne'),
+('0667221257', 'Illich', 'Ivan', '1968-02-24', 'Rue de la Résistance, nº12, 60200, Compiègne'),
+('0798723654', 'Charbonneau', 'Bernard', '1990-08-30', 'Rue des Veneurs, nº4, 60200, Compiègne');
 
 
 INSERT INTO Espece VALUES ('félin', 'moyenne'),
@@ -19,26 +19,26 @@ VALUES ('01'),
 
 
 INSERT INTO Patient (Idp, nom, date_naissance, num_puce, num_passeport, espece, espece_taille, proprietaire, dossier_medical)
-VALUES (01, 'Fifou', 'inconnue',NULL, 'FRAA59790201', 'félin', 'moyenne', '0698723654', 01),
-(02, 'Bulby', 'inconnue','87602100', NULL, 'oiseau','petite', '0667221257', 02),
-(03, 'Fofma', 'inconnue',NULL, NULL, 'reptile','petite', '0798723654', 03);
+VALUES ('01', 'Fifou', 'inconnue',NULL, 'FRAA59790201', 'félin', 'moyenne', '0698723654', '01'),
+('02', 'Bulby', 'inconnue','87602100', NULL, 'oiseau','petite', '0667221257', '02'),
+('03', 'Fofma', 'inconnue',NULL, NULL, 'reptile','petite', '0798723654', '03');
 
 
 INSERT INTO Veterinaire (num_telephone, nom, prenom, date_de_naissance, adresse)
 VALUES ('0245728090', 'de Montfort', 'Paul-Étienne', '1955-08-29', 'Avenue du Général de Gaulle, nº20, 60200, Compiègne'),
-('0245728091', 'Santini', 'Louise', '1978-09-19', 'Impasse de la Madeleine, nº20, 60200, Compiègne'),
-('0245728092', 'Fedaili', 'Imane', '1982-03-11', 'Rue Saint-Joseph, nº132, 60200, Compiègne');
+('0245728091', 'Henry', 'Edwiges', '1978-09-19', 'Impasse de la Madeleine, nº20, 60200, Compiègne'),
+('0245728092', 'Weil', 'Simone', '1982-03-11', 'Rue Saint-Joseph, nº132, 60200, Compiègne');
 
 
 INSERT INTO Traitement (IdT, date_debut, duree, date_heure_saisie, prescrit_par, dossier)
-VALUES ('01', '2018-05-05', 4, '2018-05-05, 13:00', '0245728090', '01'),
-('02', '2019-05-05', 4, '2019-05-06, 15:48', '0245728091', '02'),
-('03', '2019-05-15', 8, '2019-06-01, 09:08', '0245728092', '03');
+VALUES ('01', '2018-05-05', '4', '2018-05-05, 13:00', '0245728090', '01'),
+('02', '2019-05-05', '4', '2019-05-06, 15:48', '0245728091', '02'),
+('03', '2019-05-15', '8', '2019-06-01, 09:08', '0245728092', '03');
 
 INSERT INTO Assistant (num_telephone, nom, prenom, date_de_naissance, adresse)
-VALUES ('0345728090', 'Santini', 'Guillaume', '1965-08-09', 'Impasse de la Madeleine, nº20, 60200, Compiègne'),
+VALUES ('0345728090', 'Henry', 'Michel', '1965-08-09', 'Impasse de la Madeleine, nº20, 60200, Compiègne'),
 ('0345728091', 'Mounier', 'Emmanuel', '1976-12-25', 'Square des églises, nº58, 60200, Compiègne'),
-('0345728092', 'Ellul', 'Edwiges', '1965-10-05', 'Rue de la Liberté, nº2, 60200, Compiègne');
+('0345728092', 'Ellul', 'Jacques', '1965-10-05', 'Rue de la Liberté, nº2, 60200, Compiègne');
  
 
 INSERT INTO Suivi_proprietaire (client, patient, date_debut, date_fin)
