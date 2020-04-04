@@ -1,5 +1,5 @@
 INSERT INTO Client
-VALUES ('0698723654', 'Bloy', 'Louise', '1970-01-13', 'Rue des Oliviers, nº5, 60200, Compiègne'),
+VALUES ('0698723654', 'Bloy', 'Jeanne', '1970-01-13', 'Rue des Oliviers, nº5, 60200, Compiègne'),
 ('0667221257', 'Illich', 'Ivan', '1968-02-24', 'Rue de la Résistance, nº12, 60200, Compiègne'),
 ('0798723654', 'Charbonneau', 'Bernard', '1990-08-30', 'Rue des Veneurs, nº4, 60200, Compiègne');
 
