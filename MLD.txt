@@ -1,0 +1,67 @@
+Client(#num_tel: VARCHAR(10), nom : VARCHAR, prenom: VARCHAR, date_de_naissance: DATE, adresse: VARCHAR) 
+avec num_tel clé et nom, prenom, date_de_naissance, adresse NOT NULL et (nom, prenom, date_de_naissance, adresse) UNIQUE 
+// On considère qu’un client n’a qu’un seul numéro de téléphone 
+
+Patient(#IdP : INTEGER, nom: VARCHAR, date_naissance: VARCHAR, num_puce: INTEGER(8), num_passeport: VARCHAR(12), #espece=> Espece.categorie, #espece_taille => Espece.taille, #proprietaire => Client.num_tel, #dossier_medical =>Dossier_medical.Id) 
+avec IdP KEY, nom, date_naissance, espece, espce_taille, NOT NULL, num_puce et num_passeport UNIQUE.
+//On ajoute une clé étrangère car aucune clé potentielle et le num_puce et num_passeport ne sont pas obligatoires. 
+
+Suivi_propriétaire (#client => Client.num_tel, #patient => Patient.IdP,  date_debut: DATE, date_fin: DATE)
+avec (client, patient) KEY et date_debut NOT NULL.
+//Cette classe d’association permet de retrouver l’historique d’un patient donné 
+
+Espece (categorie: ENUM , taille: ENUM)
+avec (categorie, taille) KEY.
+
+Veterinaire (#num_telephone: VARCHAR(10), nom: VARCHAR, prenom: VARCHAR, date_de_naissance: DATE, adresse: VARCHAR) 
+avec num_telephone KEY et nom, prénom, date_de_naissance, adresse NOT NULL et (nom, prénom, date_de_naissance, adresse) UNIQUE.
+//Chaque vétérinaire n’a qu’un et un seul numéro de téléphone professionnel dans la clinique.
+
+Speveto (#veterinaire => Veterinaire.num_telephone; #espece => Espece.categorie; espece_taille => Espece.taille)
+avec (veterinaire, espece, espece_taille) clé ET veterinaire, espece, espece_taille NOT NULL.
+
+Suivi_veterinaire (#patient => Patient.IdP; #veterinaire => Veterinaire.num_telephone, date_debut : DATE; date_fin : DATE)
+avec (patient, veterinaire) KEY et date_debut, date_fin NOT NULL
+
+Assistant (#num_telephone: VARCHAR(10), nom: VARCHAR, prenom: VARCHAR, date_de_naissance: DATE, adresse: VARCHAR) 
+avec num_telephone KEY, et nom, prénom, date_de_naissance, naissance NOT NULL, (nom, prénom, date_de_naissance, adresse) UNIQUE.
+
+Speassis (#assistant => Assistant.num_telephone; #espece => Espece.categorie; #espece_taille => Espece.taille)
+avec (assistant, espece, espece_taille) KEY et assistant, espece, espece_taille NOT NULL.
+
+Traitement(#IdT : INTEGER, date_debut: DATE, duree: INTEGER, date_heure_saisie: DATETIME, #prescrit_par => Veterinaire.num_telephone, #dossier => Dossier_medical.Id)
+avec IdT KEY, date_heure_saisie NOT NULL.
+//Nous faisons le choix d’ajouter une clé artificielle car c’est le seul moyen de différencier les traitements.
+
+Consultation (#date: DATE, observation: VARCHAR; #date_heure_saisie: TIMESTAMP, #veterinaire => Veterinaire.num_telephone; #dossier => Dossier_medical.Id) 
+avec (date, dossier) KEY 
+//On considère qu’on a une seule consultation par jour et par patient
+
+Taille (#numero : INTEGER, mesure: NUMERIC (3,1), date_heure_saisie: TIMESTAMP, #dossier_medical => Dossier_Medical.Id)
+avec numero KEY
+// On ajoute une clé artificielle car on suppose possible l’entrée de plusieurs mesures en même temps dans le dossier médical.
+
+Poids (#numero integer, mesure: NUMERIC (3,1), date_heure_saisie: TIMESTAMP, #dossier_medical => Dossier_Medical.Id)
+avec numero KEY
+// On ajoute une clé artificielle car on suppose possible l’entrée de plusieurs mesures en même temps dans le dossier médical
+
+Dossier_medical(#Id: INTEGER)
+avec Id KEY. 
+// Clé artificielle car nous n’avions aucun autre attribut.
+
+Analyses (#resultat : VARCHAR, date_heure_saisie : TIMESTAMP, #dossier_medical => Dossier_medical.id)
+avec resultat KEY, date_heure_saisie NOT NULL, et dossier_medical UNIQUE et NOT NULL
+// On peut avoir plusieurs analyses pour un même dossier médical
+
+Posologie(#traitement => Traitement.IdT, #medicament=> Medicament.nom_molecule, quantite_par_jour: INTEGER)
+avec (traitement, medicament) KEY et quantite_par_jour NOT NULL
+
+Procedure(#nom : VARCHAR; description : VARCHAR; date_heure_saisie : TIMESTAMP, #assistant=>Assistant.num_telephone; #veterinaire => Veterinaire.num_telephone; #dossier=> Dossier_medical.Id) 
+avec (nom, dossier, date_heure_saisie) KEY, description NOT NULL, assistant et veterinaire UNIQUE, et ((assistant IS NULL) AND (veterinaire IS NOT NULL)) OR ((assistant IS NOT NULL) AND (veterinaire IS NULL))).
+
+Médicament (#nom_molecule : VARCHAR, effets: VARHCAR)
+avec nom_molecule KEY et effets NOT NULL.
+
+Est-autorise (#medicament => Medicament.nom_molecule, #espece => Espece.categorie, #espece_taille => Espece.taille) 
+avec (medicament, espece, espece_taille) KEY.
+//transformation d’une association N:M
