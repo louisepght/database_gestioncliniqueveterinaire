@@ -166,7 +166,7 @@ L’espèce est caractérisée par :
     
 -   sa *taille*, petite ou moyenne, par rapport à la catégorie à laquelle le patient appartient
 
-Un patient ne peut appartenir qu'à une seule espèce. En revanche, il peut y avoir plusieurs patients de la même espèce.
+Un patient ne peut appartenir qu'à une seule espèce. En revanche, il peut y avoir plusieurs patients de la même espèce. Une espèce est identifiée par le couple (catégorie, taille).
 
 
 ### Le client
@@ -184,7 +184,7 @@ Un client de la clinique est une personne possédant un animal de compagnie qui 
 -   son *numéro de téléphone*
     
 
-Un client peut être le propriétaire d’un ou plusieurs patients de la clinique, sur une période de temps finie ou en cours. Toutefois, il ne peut être un membre du personnel de celle-ci.
+Un client peut être le propriétaire d’un ou plusieurs patients de la clinique, sur une période de temps finie ou en cours. Toutefois, il ne peut être un membre du personnel de celle-ci. Un client est identifié par son numéro de téléphone. En effet, on considère qu'un seul numéro de téléphone est géré par personne (client, personnel).
 
 
 ### Les assistants et les vétérinaires
@@ -204,7 +204,7 @@ Les assistants et les vétérinaires de la clinique s’occupent des patients lo
 -   une *spécialité*
     
 
-Contrairement aux vétérinaires, les assistant(e)s ne sont pas autorisé(e)s à prescrire un traitement.
+Contrairement aux vétérinaires, les assistant(e)s ne sont pas autorisé(e)s à prescrire un traitement. Un membre du personnel (assistant ou vétérinaire) est identifié par son numéro de téléphone.
 
 ### Le dossier médical
 
@@ -241,7 +241,7 @@ Chaque patient peut assister à une ou plusieurs consultations. Celles-ci se car
 -   un(e) membre du *personnel* effectuant la consultation
     
 -   la *saisie (date et heure)* de la consultation dans la base de données
-    
+
 
 ### Le traitement
 
@@ -271,8 +271,6 @@ Un patient peut ne pas avoir eu d’analyses pendant son suivi.
 
 La procédure doit être réalisée sur le patient avec sa description. Elle se caractérise par :
 
-  
-
 -  son *nom*
     
 -  sa *description*
@@ -280,7 +278,6 @@ La procédure doit être réalisée sur le patient avec sa description. Elle se 
 -  sa *saisie (date et heure)* dans la base de données
     
 
-  
 
 ## Le médicament
 
