@@ -51,7 +51,7 @@ def afficher_client(conn):
     cur.execute(sql)
     res = cur.fetchall()
     for resultat in res : 
-            print(resultat)
+            print(resultat[0],resultat[1],resultat[2],resultat[3],resultat[4])
 
 def modifier_client(conn) :
     cur = conn.cursor()
