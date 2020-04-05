@@ -59,6 +59,7 @@ CREATE TABLE Traitement (
     date_heure_saisie TIMESTAMP, 
     prescrit_par VARCHAR NOT NULL, 
     dossier INTEGER,
+    PRIMARY KEY (IdT),
     FOREIGN KEY (prescrit_par) REFERENCES Veterinaire(num_telephone),
     FOREIGN KEY (dossier) REFERENCES Dossier_medical(Id)
 );
