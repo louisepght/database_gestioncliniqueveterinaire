@@ -1,9 +1,11 @@
 CREATE TABLE Client (
-    num_tel VARCHAR(10) PRIMARY KEY,
+    num_tel VARCHAR(10),
     nom VARCHAR NOT NULL,
     prenom VARCHAR NOT NULL,
     date_de_naissance DATE NOT NULL,
     adresse VARCHAR NOT NULL,
+    PRIMARY KEY (num_tel),
+    UNIQUE (nom, prenom, date_de_naissance,adresse),
     CHECK (LENGTH(num_tel)=10)
 );
 
@@ -21,7 +23,7 @@ CREATE TABLE Dossier_medical(
 
 CREATE TABLE Patient (
     Idp INTEGER,
-    nom VARCHAR,
+    nom VARCHAR NOT NULL,
     date_naissance VARCHAR,
     num_puce VARCHAR(8), 
     num_passeport VARCHAR(12), 
@@ -39,11 +41,12 @@ CREATE TABLE Patient (
 
 
 CREATE TABLE Veterinaire (
-    num_telephone VARCHAR(10) PRIMARY KEY,
+    num_telephone VARCHAR(10),
     nom VARCHAR NOT NULL,
     prenom VARCHAR NOT NULL, 
     date_de_naissance DATE NOT NULL, 
     adresse VARCHAR UNIQUE NOT NULL,
+    PRIMARY KEY (num_telephone),
     UNIQUE (nom, prenom, date_de_naissance,adresse),
     CHECK (LENGTH(num_telephone)=10)
 );
@@ -53,27 +56,29 @@ CREATE TABLE Traitement (
     date_debut DATE NOT NULL, 
     duree INTEGER NOT NULL, 
     date_heure_saisie TIMESTAMP, 
-    prescrit_par VARCHAR, 
+    prescrit_par VARCHAR NOT NULL, 
     dossier INTEGER,
     FOREIGN KEY (prescrit_par) REFERENCES Veterinaire(num_telephone),
     FOREIGN KEY (dossier) REFERENCES Dossier_medical(Id)
 );
 
 CREATE TABLE Assistant(
-    num_telephone VARCHAR(10) PRIMARY KEY, 
+    num_telephone VARCHAR(10), 
     nom VARCHAR NOT NULL, 
     prenom VARCHAR NOT NULL, 
     date_de_naissance DATE NOT NULL, 
     adresse VARCHAR NOT NULL, 
+    PRIMARY KEY (num_telephone),
     UNIQUE (nom, prenom, date_de_naissance,adresse),
     CHECK (LENGTH(num_telephone)=10)
 );
 
 CREATE TABLE Suivi_proprietaire (
-    client VARCHAR(10) NOT NULL, 
+    client VARCHAR(10), 
     patient INTEGER, 
     date_debut DATE NOT NULL, 
-    date_fin DATE, 
+    date_fin DATE,
+    PRIMARY KEY (client, patient), 
     FOREIGN KEY (client) REFERENCES Client(num_tel), 
     FOREIGN KEY (patient) REFERENCES Patient(IdP)
 
@@ -81,9 +86,10 @@ CREATE TABLE Suivi_proprietaire (
 
 CREATE TABLE Suivi_veterinaire (
     patient INTEGER, 
-    veterinaire VARCHAR(10) NOT NULL, 
+    veterinaire VARCHAR(10), 
     date_debut DATE NOT NULL, 
-    date_fin DATE NOT NULL, 
+    date_fin DATE NOT NULL,
+    PRIMARY KEY (patient, veterinaire), 
     FOREIGN KEY (patient) REFERENCES Patient(IdP),
     FOREIGN KEY (veterinaire) REFERENCES Veterinaire(num_telephone)
 );
@@ -126,14 +132,14 @@ CREATE TABLE Analyses (
 );
 
 CREATE TABLE Medicament (
-    nom_molecule VARCHAR PRIMARY KEY NOT NULL, 
+    nom_molecule VARCHAR PRIMARY KEY, 
     effets VARCHAR NOT NULL
 );
 
 CREATE TABLE Est_autorise(
-    medicament VARCHAR NOT NULL, 
-    espece VARCHAR NOT NULL,
-    espece_taille VARCHAR NOT NULL,
+    medicament VARCHAR, 
+    espece VARCHAR,
+    espece_taille VARCHAR,
     PRIMARY KEY (medicament, espece, espece_taille),
     FOREIGN KEY (medicament) REFERENCES Medicament(nom_molecule), 
     FOREIGN KEY (espece, espece_taille) REFERENCES Espece(categorie,taille)
@@ -141,8 +147,8 @@ CREATE TABLE Est_autorise(
 
 CREATE TABLE Posologie (
     traitement INTEGER, 
-    medicament VARCHAR NOT NULL, 
-    quantite_par_jour INTEGER, 
+    medicament VARCHAR, 
+    quantite_par_jour INTEGER NOT NULL, 
     PRIMARY KEY (traitement, medicament),
     FOREIGN KEY (traitement) REFERENCES Traitement(IdT), 
     FOREIGN KEY (medicament) REFERENCES Medicament(nom_molecule), 
@@ -151,9 +157,9 @@ CREATE TABLE Posologie (
 );
 
 CREATE TABLE Procedure (
-    nom VARCHAR NOT NULL, 
+    nom VARCHAR, 
     description VARCHAR NOT NULL,
-    date_heure_saisie TIMESTAMP NOT NULL, 
+    date_heure_saisie TIMESTAMP, 
     assistant VARCHAR UNIQUE, 
     veterinaire VARCHAR UNIQUE, 
     dossier INTEGER, 
@@ -164,22 +170,22 @@ CREATE TABLE Procedure (
 );
 
 CREATE TABLE Speveto (
-    veterinaire VARCHAR NOT NULL, 
-    espece VARCHAR NOT NULL, 
-    espece_taille VARCHAR NOT NULL, 
+    veterinaire VARCHAR, 
+    espece VARCHAR, 
+    espece_taille VARCHAR, 
+    PRIMARY KEY (veterinaire, espece, espece_taille),
     FOREIGN KEY (veterinaire) REFERENCES Veterinaire(num_telephone), 
     FOREIGN KEY (espece, espece_taille) REFERENCES Espece(categorie,taille)
 );
 
-
 CREATE TABLE Speassis (
-    assistant VARCHAR NOT NULL,
-    espece VARCHAR NOT NULL, 
-    espece_taille VARCHAR NOT NULL,
+    assistant VARCHAR,
+    espece VARCHAR, 
+    espece_taille VARCHAR,
+    PRIMARY KEY (assistant, espece, espece_taille),
     FOREIGN KEY (assistant) REFERENCES Assistant(num_telephone), 
     FOREIGN KEY (espece, espece_taille) REFERENCES Espece(categorie,taille)
 
 );
-
 
 	
