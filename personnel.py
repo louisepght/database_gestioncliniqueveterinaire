@@ -17,22 +17,37 @@ def creer_personnel(conn) :
         cur = conn.cursor()
         if personnel == 1 : 
             try :
-                _num_telephone = quote(input("Entrez le numéro de téléphone."))
-                _nom = quote(input("Entrez le nom."))
-                _prenom = quote(input("Entrez le prénom."))
-                _annee = quote(input("Entrez l'année de naissance")) 
-                _mois = quote(input("Entrez le mois de naissance")) 
-                _jour = quote(input("Entrez le jour de naissance"))
+                _num_telephone = quote(input("Entrez le numéro de téléphone. "))
+                _nom = quote(input("Entrez le nom. "))
+                _prenom = quote(input("Entrez le prénom. "))
+                _annee = quote(input("Entrez l'année de naissance ")) 
+                _mois = quote(input("Entrez le mois de naissance ")) 
+                _jour = quote(input("Entrez le jour de naissance "))
                 _date_de_naissance = quote(datetime.date(_annee, _mois, _jour))
                 _adresse = quote(input("Entrez l'adresse."))
+                sql_check = "SELECT num_tel FROM Client UNION SELECT num_telephone FROM Assistant;"
+                cur.execute(sql_check)
+                res = cur.fetchall()
+                
+                if (_num_telephone in res) :
+                    print("Vous avez entré des informations entrées pour client ou un assistant, veuillez réessayer\n")
+                    _num_telephone = quote(input("Entrez le numero de telephone. "))        
+                    _nom = quote(input("Entrez le nom "))
+                    _prenom = quote(input("Entrez le prenom"))
+                    _annee = int(input("Entrez l'annee de naissance "))
+                    _mois = int(input("Entrez le mois de naissance "))
+                    _jour= int(input("Entrez le jour de naissance "))
+                    _date_de_naissance= quote(datetime.date(_annee, _mois, _jour))
+                    _adresse = quote(input("Entrez l'adresse du vétérinaire. "))
+
                 sql = "INSERT INTO Veterinaire (num_telephone, nom, prenom, date_de_naissance, adresse) VALUES (%s, %s, %s, %s, %s);" % (_num_telephone, _nom, _prenom, _date_de_naissance, _adresse)
                 cur.execute(sql)
                 conn.commit()
+                print("Le vétérinaire a bien été ajouté.")
             except psycopg2.IntegrityError as e : 
                 conn.rollback()
                 print("Message système :", e)
             
-            print("Le vétérinaire a bien été ajouté.")
 
         elif personnel == 0 : 
             try :
@@ -44,7 +59,21 @@ def creer_personnel(conn) :
                 _jour = int(input("Entrez le jour de naissance"))
                 _date_de_naissance = quote(datetime.date(_annee, _mois, _jour))
                 _adresse = quote(input("Entrez l'adresse."))
-                sql = "INSERT INTO Veterinaire (num_telephone, nom, prenom, date_de_naissance, adresse) VALUES (%s, %s, %s, %s, %s);" % (_num_telephone, _nom, _prenom, _date_de_naissance, _adresse)
+                sql_check = "SELECT num_tel FROM Client UNION SELECT num_telephone FROM Veterinaire;"
+                cur.execute(sql_check)
+                res = cur.fetchall()
+                if (_num_telephone in res) :
+                    print("Vous avez entré des informations entrées pour client ou un vétérinaire, veuillez réessayer\n")
+                    _num_telephone = quote(input("Entrez le numero de telephone. "))        
+                    _nom = quote(input("Entrez le nom "))
+                    _prenom = quote(input("Entrez le prenom"))
+                    _annee = int(input("Entrez l'annee de naissance "))
+                    _mois = int(input("Entrez le mois de naissance "))
+                    _jour= int(input("Entrez le jour de naissance "))
+                    _date_de_naissance= quote(datetime.date(_annee, _mois, _jour))
+                    _adresse = quote(input("Entrez l'adresse de l'assistant. "))
+                
+                sql = "INSERT INTO Assistant (num_telephone, nom, prenom, date_de_naissance, adresse) VALUES (%s, %s, %s, %s, %s);" % (_num_telephone, _nom, _prenom, _date_de_naissance, _adresse)
                 cur.execute(sql)
                 conn.commit()
             except psycopg2.IntegrityError as e : 
