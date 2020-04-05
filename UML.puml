@@ -1,0 +1,140 @@
+@startuml
+hide circle
+
+note as N1
+ * On admet qu’un patient ne peut avoir qu’une seule consultation par jour.
+ * On considère qu'un client peut ne plus être propriétaire pour l'historique
+
+end note
+
+class Client {
+	nom: String
+	prenom: String
+	date de naissance: Date
+	adresse: String
+	num_tel: Varchar(10) {key}
+}
+note top
+Les vétérinaires et les assistants ne peuvent
+pas être des clients de la clinique.
+Un client peut représenter
+une famille propriétaire d'un patient.
+endnote
+
+class Patient{
+	nom: String
+	date_naissance [0..1]: String
+	num_puce [0..1] : Integer  {unique}
+	num_passeport [0..1] : String  {unique}
+}
+
+class Dossier_medical {
+}
+
+class Espece{
+	categorie: {felin, canide, reptile, rongeur, oiseau, autre}
+	taille: {petite, moyenne}
+}
+Note left : {(categorie, taille) key}
+
+class Veterinaire {
+	nom: String
+	prenom: String
+	date de naissance: Date
+	adresse: String
+	num_telephone: Varchar(10){key}
+}
+
+class Consultation{
+	date : Date
+	observation : string
+	personnel : string
+  	date_heure_saisie: Datatime
+}
+
+class Suivi_proprietaires {
+	date_debut: date
+	date_fin [0..1] : date
+}
+
+class Suivi_veterinaire {
+	date_debut: date
+	date_fin [0..1] : date
+}
+
+class Taille{
+	mesure: integer
+	date_heure_saisie: Datatime
+}
+
+class Poids {
+	mesure: integer
+	date_heure_saisie: Datatime
+}
+
+class Analyses {
+	resultat: String
+	date_heure_saisie: Datatime
+}
+
+class Procedure {
+	nom: String
+	description: String
+	date_heure_saisie: Datatime
+}
+
+class Traitement {
+	date_debut : Date
+	duree : Integer
+	date_heure_saisie: Datatime
+}
+
+class Medicament {
+	nom_molecule: String {key}
+	effets: String
+}
+
+class Posologie {
+	quantite_par_jour: Integer
+}
+
+class Assistant {
+	nom: String
+	prenom: String
+	date de naissance: Date
+	adresse: String
+	num_telephone: Varchar(10) {key}
+}
+
+Veterinaire “0...N” - “0...N” Patient : traite >
+Suivi_veterinaire .. (Patient, Veterinaire)
+Client “0...1” -- “0...N” Patient : possède >
+Suivi_proprietaires .. (Patient, Client)
+Patient “1..1” -- “1..1” Dossier_medical: est associe a >
+
+Consultation “1...N” - “1..1” Dossier_medical: < contient
+Dossier_medical “1..1” -- “0...N” Traitement : contient >
+Dossier_medical “1..1” -- “0...N” Poids: contient >
+Dossier_medical “1..1” -- “0...N” Taille: contient >
+Dossier_medical “1..1” -- “0...N” Procedure : contient >
+Dossier_medical “1..1” -- “0...N” Analyses: contient >
+
+Patient “0...N” - “1..1” Espece: est de type >
+
+Traitement “1...N” -- “1...N” Medicament: comporte >
+(Traitement, Medicament) .. Posologie
+Medicament “0...N” -- “0...N” Espece: est-autorise-pour >
+note bottom
+Un medicament n'est autorisé que pour certaines espèces
+endnote
+
+Veterinaire “0...N” - “1...N” Espece: est spécialisé dans >
+Veterinaire “1..1” - “0...N” Traitement: prescrit >
+Veterinaire “1..1” -- “0...N” Consultation: donne >
+Assistant “0...N” - “1...N” Espece: est spécialisé dans >
+Veterinaire “1” - “0...N” Procedure: realise >
+Procedure “0...N” -- “1” Assistant  : < realise
+
+@enduml
+
+
