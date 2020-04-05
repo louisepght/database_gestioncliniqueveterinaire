@@ -111,18 +111,6 @@ def afficher_personnel(conn):
     for raw in res : 
         print(raw[0],raw[1],raw[3],raw[4],raw[5])
 
-def supprimer_personnel(conn):
-    cur = conn.cursor() 
-    try:
-        _searchnumtel = quote(input("Entrez le numéro de téléphone du patient à supprimer."))
-        _table = input("Est-ce un vétérinaire (Veterinaire) ou un assistant (Assistant) ?")
-        sql = "DELETE FROM %s WHERE num_telephone =%s;" % (_table, _searchnumtel)
-        cur.execute(sql)
-        conn.commit()
-    except psycopg2.IntegrityError as e : 
-        conn.rollback()
-        print("Message système :", e)
- 
 
 def modifier_personnel(conn) : 
     cur = conn.cursor() 
