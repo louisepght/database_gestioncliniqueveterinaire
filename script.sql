@@ -35,8 +35,9 @@ CREATE TABLE Patient (
     FOREIGN KEY (espece,espece_taille) REFERENCES Espece(categorie,taille), 
     FOREIGN KEY (proprietaire) REFERENCES Client(num_tel),
     FOREIGN KEY (dossier_medical) REFERENCES Dossier_medical(Id),
-    CHECK ((date_naissance LIKE '[0-9]{4}') OR (date_naissance LIKE'[0-9]{2}/[0-9]{2}/[0-9]{4}') OR (date_naissance LIKE 'inconnue')),
-    CHECK (LENGTH(num_puce)= 8)
+    CHECK ((LENGTH(date_naissance)=4) OR (LENGTH(date_naissance)=10) OR (date_naissance LIKE 'inconnue')),
+    CHECK (LENGTH(num_puce)= 8),
+    CHECK (LENGTH(num_passeport)= 12)
 );
 
 
