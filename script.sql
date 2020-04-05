@@ -59,7 +59,6 @@ CREATE TABLE Traitement (
     date_heure_saisie TIMESTAMP, 
     prescrit_par VARCHAR NOT NULL, 
     dossier INTEGER,
-    PRIMARY KEY (IdT),
     FOREIGN KEY (prescrit_par) REFERENCES Veterinaire(num_telephone),
     FOREIGN KEY (dossier) REFERENCES Dossier_medical(Id)
 );
@@ -126,7 +125,7 @@ CREATE TABLE Poids (
 ); 
 
 CREATE TABLE Analyses (
-    resultat VARCHAR PRIMARY KEY NOT NULL,
+    resultat VARCHAR PRIMARY KEY,
     date_heure_saisie TIMESTAMP,
     dossier_medical INTEGER REFERENCES Dossier_medical(Id),
     CHECK (SUBSTR(resultat,1,8) ='https://')
