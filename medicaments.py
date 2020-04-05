@@ -45,28 +45,10 @@ def inserer_medicament(conn): #dans la perspective d'une prescription a un patie
 
 def modifier_medicament(conn):
     cur = conn.cursor()
-    _nom_molecule= quote(input("Quel médicament voulez-vous modifier ? Entrez le nom de sa molécule : "))
-
-    decision = int(input("Tapez 1 pour mettre à jour le nom, 2 pour mettre à jour les effets, 3 pour le nom et les effets : "))
-
-    while ((decision < 1) and (decision > 3)) :
-        print("Le nombre entré ne renvoie à aucune option, veuillez réessayer\n")
-        decision = int(input("Tapez 1 pour mettre à jour le nom, 2 pour mettre à jour les effets, 3 pour le nom et les effets : "))
-    try :
-
-        if decision == 1 :
-            _new_molecule = quote(input("Entrez le nouveau nom de la molécule : "))
-            sql="UPDATE Medicament SET nom_molecule = %s WHERE nom_molecule = %s;"%(_new_molecule, _nom_molecule)
-
-        elif decision == 2 : 
-           _new_effets = quote(input("Entrez les nouveaux effets de la molécule : "))
-           sql="UPDATE Medicament SET effets=%s WHERE nom_molecule = %s;"%(vnew_effets, _nom_molecule)	
-
-        elif decision == 3 :
-          _new_molecule = quote(input("Entrez le nouveau nom de la molécule : "))
-          _new_effets = quote(input("Entrez les nouveaux effets de la molécule : "))
-          sql="UPDATE Medicament SET nom_molecule = %s, effets=%s WHERE nom_molecule = %s;"%(_new_molecule, _new_effets, _nom_molecule)
-
+    try:
+        _nom_molecule= quote(input("Quel médicament voulez-vous modifier ? Entrez le nom de sa molécule : "))
+        _new_effets = quote(input("Entrez les nouveaux effets de la molécule : "))
+    sql="UPDATE Medicament SET effets=%s WHERE nom_molecule = %s;"%(vnew_effets, _nom_molecule)	
         cur.execute(sql)	
         conn.commit()
 
