@@ -100,56 +100,48 @@ def modifier_personnel(conn) :
     personnel = int(input("Entrez 0 pour Veterinaire, ou 1 pour assistant"))
     _searchnumtel = quote(input("Entrez le numéro de téléphone du membre du personnel à modifier"))
     if personnel == 0 :
-        update = int(input("Que voulez vous mettre à jour? 1 num_tel, 2 nom, 3 prenom, 4 date_de_naissance, 5 adresse"))
+        update = int(input("Que voulez vous mettre à jour? 1 nom, 2 prenom, 3 date_de_naissance, 4 adresse"))
         
         if update == 1 : 
-            _num_tel = quote(input("Entrez le nouveau numéro de téléphone"))
-            sql = "UPDATE Veterinaire SET num_telephone = %s WHERE num_tel = %s;" % (_num_tel, _searchnumtel)
-
-        elif update == 2 : 
             _nom = quote(input("Entrez le nouveau nom"))
             sql = "UPDATE Veterinaire SET nom = %s WHERE num_tel = %s;" %(_nom, _searchnumtel)
 
-        elif update == 3 : 
+        elif update == 2 : 
             _prenom = quote(input("Entrez le nouveau prénom"))
             sql = "UPDATE Veterinaire SET prenom = %s WHERE num_tel = %s; " %(_prenom, _searchnumtel)
 
-        elif update == 4 : 
+        elif update == 3 : 
             _annee = quote(input("Entrez l'année de naissance")) 
             _mois = quote(input("Entrez le mois de naissance"))
             _jour = quote(input("Entrez le jour de naissance"))
             _date_de_naissance = quote(datetime.date(_annee, _mois, _jour))
             sql = "UPDATE Veterinaire SET date_de_naissance =%s WHERE num_tel =%s;" %(_date_de_naissance, _searchnumtel)
        
-        elif update == 5 : 
+        elif update == 4 : 
             _adresse = quote(input("Entrez la nouvelle adresse"))
             sql = "UPDATE Veterinaire SET adresse = %s WHERE num_tel =%s;" %(_adresse, _searchnumtel)
             cur.execute(sql)
             conn.commit()
 
     elif personnel == 1 : 
-        update = int(input("Que voulez vous mettre à jour? \n 1 num_tel, 2 nom, 3 prenom, 4 date_de_naissance, 5 adresse"))
+        update = int(input("Que voulez vous mettre à jour? \n 1 nom, 2 prenom, 3 date_de_naissance, 4 adresse"))
 
         if update == 1 : 
-            _num_tel = quote(input("Entrez le nouveau numéro de téléphone"))
-            sql = "UPDATE Assistant SET num_telephone = %s WHERE num_tel = %s;" % (_num_tel, _searchnumtel)
-
-        elif update == 2 : 
             _nom = quote(input("Entrez le nouveau nom"))
             sql = "UPDATE Assistant SET nom = %s WHERE num_tel = %s;" % (_nom, _searchnumtel)
 
-        elif update == 3 : 
+        elif update == 2 : 
             _prenom = quote(input("Entrez le nouveau prénom"))
             sql = "UPDATE Assistant SET prenom = %s WHERE num_tel =%s;" % (_prenom, _searchnumtel)
 
-        elif update == 4 : 
+        elif update == 3 : 
             _annee = quote(input("Entrez l'année de naissance")) 
             _mois = quote(input("Entrez le mois de naissance"))
             _jour = quote(input("Entrez le jour de naissance"))
             _date_de_naissance = quote(datetime.date(_annee, _mois, _jour))
             sql = "UPDATE Assistant SET date_de_naissance =%s WHERE num_tel =%s ;" % (_date_de_naissance, _searchnumtel)
 
-        elif update == 5 : 
+        elif update == 4 : 
             _adresse = quote(input("Entrez la nouvelle adresse"))
             sql = "UPDATE Assistant SET adresse = %s WHERE num_tel =%s ;"%(_adresse, _searchnumtel)
 
