@@ -18,24 +18,24 @@ https://gitlab.utc.fr/sdeborde/projet_nf18
 Nous avons compris "fonctionnalités" comme une possibilité d'action pour un utilisateur.
 Voici les fonctionnalités implémentées :
  * Gestion des clients:
-        * création d'un client
-        * modification d'un client (nom, prénom, date de naissance et adresse)
-        * affichage de tous les clients
+	  *  création d'un client
+	 * modification d'un client (nom, prénom, date de naissance et adresse)
+	 * affichage de tous les clients
  * Gestion des patients:
-        * création d'un patient et de son dossier médical
-        * modification d'un patient (date de naissance, numéro de la puce, numéro du passeport et propriétaire)
-        * affichage des patients (tous les patients, une espèce et un propriétaire)
+	 * création d'un patient et de son dossier médical
+	 * modification d'un patient (date de naissance, numéro de la puce, numéro du passeport et propriétaire)
+	  * affichage des patients (tous les patients, une espèce et un propriétaire)
  * Gestion des médicaments
-        * création d'un médicament
-        * modification d'un médicament (effets)
-        * affichage des médicaments (tous les médicaments, espèces incompatibles avec un médicament)
+	  * création d'un médicament
+	  * modification d'un médicament (effets)
+	   * affichage des médicaments (tous les médicaments, espèces incompatibles avec un médicament)
  * Gestion du personnel de la clinique (vétérinaire ou assistant)
-        * création d'un membre du personnel
-        * modification d'un membre du personnel (nom, prenom, date de naissance et adresse)
-        * affichage des membres du personnel (tous les membres, un membre)
+	  * création d'un membre du personnel
+	  * modification d'un membre du personnel (nom, prenom, date de naissance et adresse)
+	 * affichage des membres du personnel (tous les membres, un membre)
  * Génération du rapport d'activité:
-        * obtention du nombre de traitements prescrits pour une journée
-        * classement des vétérinaires par nombre de patients
+	 * obtention du nombre de traitements prescrits pour une journée
+	* classement des vétérinaires par nombre de patients
 
 
 ## Contenu du répertoire
@@ -61,7 +61,7 @@ Voici les fonctionnalités implémentées :
 2. Exécutez sur votre base de données le script script.sql pour créer les tables, puis exemple_donnees.sql pour insérer les données
 
 
-### Utilisation du projet
+## Utilisation du projet
 
 Pour lancer l'application Python:
 1. Placez tous les scripts python dans le même répertoire.
