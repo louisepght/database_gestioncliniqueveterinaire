@@ -7,15 +7,6 @@
  * Louise Poughet
  * Sarah Deborde
  
-# Remise du projet
-
-## TD1 Groupe 1
-
-* Liza Al-Shikhley
-* Sarah Deborde
-* Daniel Duthoit
-* Louise Poughet
-
 
 https://gitlab.utc.fr/sdeborde/projet_nf18
 
@@ -31,14 +22,14 @@ Voici les fonctionallités implémentées :
 *
 
 ## Mise en place du projet sur votre ordinateur
-1- Créez une base de données via PostgreSQL, dont vous serez le propriétaire.
-	a - Si vous ne connaissez pas le mot de passe de postgres par défaut, utilisez la commande GRANT ALL PRIVILEGES to *votre nom d'utilisateur* ON *le nom de la base créée*;)
-	b - Puis, utilisez la commande GRANT USAGE, SELECT ALL ON SEQUENCES IN SCHEMA public TO *votre nom d'utilisateur* ;
-2- Exécutez sur votre base de données le script script.sql pour créer les tables, puis exemple_donnees.sql pour insérer les données
-3- Exécutez index.py avec python3
+1. Créez une base de données via PostgreSQL, dont vous serez le propriétaire.
+	a. Si vous ne connaissez pas le mot de passe de postgres par défaut, utilisez la commande GRANT ALL PRIVILEGES to *votre nom d'utilisateur* ON *le nom de la base créée*;)
+	b. Puis, utilisez la commande GRANT USAGE, SELECT ALL ON SEQUENCES IN SCHEMA public TO *votre nom d'utilisateur* ;
+2. Exécutez sur votre base de données le script script.sql pour créer les tables, puis exemple_donnees.sql pour insérer les données
+3. Exécutez index.py avec python3
 
 ### Utilisation du projet
 Pour lancer l'application Python:
-1- Placez tous les scripts python dans le même répertoire.
-2- Assurez-vous de rendre tous les scripts exécutables.
-3- Exécutez le script index.py 
+1. Placez tous les scripts python dans le même répertoire.
+2. Assurez-vous de rendre tous les scripts exécutables.
+3. Exécutez le script index.py 
