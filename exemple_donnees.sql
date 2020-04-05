@@ -4,10 +4,19 @@ VALUES ('0698723654', 'Bloy', 'Jeanne', '1970-01-13', 'Rue des Oliviers, nº5, 6
 ('0798723654', 'Charbonneau', 'Bernard', '1990-08-30', 'Rue des Veneurs, nº4, 60200, Compiègne');
 
 
-INSERT INTO Espece VALUES ('félin', 'moyenne'),
+INSERT INTO Espece VALUES ('félin', 'petite'),
 ('canidé', 'petite'),
 ('oiseau', 'petite'),
-('reptile','petite');
+('reptile','petite'),
+('rongeur','petite'),
+('autre','petite'),
+('félin', 'moyenne'),
+('canidé', 'moyenne'),
+('oiseau', 'moyenne'),
+('reptile','moyenne'),
+('rongeur','moyenne'),
+('autre','moyenne');
+
 
 
 INSERT INTO Dossier_medical (Id)
