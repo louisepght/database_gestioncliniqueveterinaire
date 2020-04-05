@@ -9,71 +9,77 @@ def quote(s):
         return 'NULL'
 
 def creer_client(conn) :
-	i = int(input("Etes vous sur de vouloir creer un client? 1 pour oui, 0 pour non"))
-	if i == 0 :
-		return
-	if i == 1 :
-        	try :
-			num_tel = quote(input("Entrez le numero de telephone du client."))
-			nom = quote(input("Entrez le nom du client"))
-			prenom = quote(input("Entrez le prenom du client"))
-			annee = int(input("Entrez l'annee de naissance"))
-			mois = int(input("Entrez le mois de naissance"))
-			jour= int(input("Entrez le jour de naissance"))
-			date_de_naissance= datetime.date(annee, mois, jour)
-			adresse = quote(input("Entrez l'adresse du client."))
+    cur = conn.cursor()
+    try :
+        _num_tel = quote(input("Entrez le numero de telephone du client."))        
+        _nom = quote(input("Entrez le nom du client"))
+        _prenom = quote(input("Entrez le prenom du client"))
+        _annee = int(input("Entrez l'annee de naissance"))
+        _mois = int(input("Entrez le mois de naissance"))
+        _jour= int(input("Entrez le jour de naissance"))
+        _date_de_naissance= quote(datetime.date(_annee, _mois, _jour))
+        _adresse = quote(input("Entrez l'adresse du client."))
+        
+        sql_check = "SELECT num_telephone FROM Veterinaire UNION SELECT num_telephone FROM Assistant;"
+        cur.execute(sql_check)
+        res = cur.fetchall()
+        if (_num_tel in res) :
+            print("Vous avez entré des informations entrées pour un membre du personnel, veuillez réessayer\n")
+            _num_tel = quote(input("Entrez le numero de telephone du client."))        
+            _nom = quote(input("Entrez le nom du client"))
+            _prenom = quote(input("Entrez le prenom du client"))
+            _annee = int(input("Entrez l'annee de naissance"))
+            _mois = int(input("Entrez le mois de naissance"))
+            _jour= int(input("Entrez le jour de naissance"))
+            _date_de_naissance= quote(datetime.date(_annee, _mois, _jour))
+            _adresse = quote(input("Entrez l'adresse du client."))
+			
+        sql= "INSERT INTO Client(num_tel, nom, prenom, date_de_naissance, adresse) VALUES (%s, %s, %s, %s, %s);" % (_num_tel, _nom, _prenom, _date_de_naissance, _adresse)
+        cur.execute(sql)
+        conn.commit()
+        print("Le client a bien été ajouté.")
 
-	    		sql= "INSERT INTO Client(num_tel, nom, prenom, date_de_naissance, adresse) VALUES (%i, %s, %s, %i, %i, %i, %s, %s)" % (num_tel, nom, prenom, date_de_naissance, adresse)
-	    		cur.execute(sql)
-	    		conn.commit()
-
-		except psycopg2.IntegrityError as e :
-			conn.rollback()
-			print("Message système :", e)
-
-		print("Le client a bien ete ajoute.")
-
-	else :
-		print("Vous vous etes trompe.")
-		return creer_client(conn)
+    except psycopg2.IntegrityError as e :
+        conn.rollback()
+        print("Message système :", e)
+        
+    return _num_tel
 
 def afficher_client(conn):
-	cur = conn.cursor()
-	sql = "SELECT * FROM Client"
-	cur.execute(sql)
-	res = cur.fetchall()
-	i= 0
-	while res :
-		print(res[i])
-		i +=1
+    cur = conn.cursor()
+    sql = "SELECT * FROM Client;"
+    cur.execute(sql)
+    res = cur.fetchall()
+    for resultat in res : 
+            print(resultat)
 
 def modifier_client(conn) :
-	cur = conn.cursor()
-	update = int(input("Que voulez vous mettre a jour?\n 1 num_tel, 2 nom, 3 prenom, 4 date_de_naissance, 5 adresse"))
-	searchnumtel = int(input("Entrez le numero de telephone appartenant au client a modifier."))
+    cur = conn.cursor()
+    update = int(input("Que voulez vous mettre a jour?\n 1 num_tel, 2 nom, 3 prenom, 4 date_de_naissance, 5 adresse"))
+    _searchnumtel = int(input("Entrez le numero de telephone appartenant au client a modifier."))
 
-	if update == 1 :
-		num_tel = quote(input("Entrez le nouveau numero de telephone"))
-		sql = "UPDATE Client SET num_tel = %i WHERE num_tel = %i" % (num_tel, searchnumtel)
+    if update == 1 :
+        _num_tel = quote(input("Entrez le nouveau numero de telephone"))
+        sql = "UPDATE Client SET num_tel = %i WHERE num_tel = %i" % (_num_tel, _searchnumtel)
 
-	elif update == 2 :
-		nom = quote(input("Entrez le nouveau nom"))
-		sql = "UPDATE Client SET nom = %s WHERE num_tel = %i " % (nom, searchnumtel)
+    elif update == 2 :
+        _nom = quote(input("Entrez le nouveau nom"))
+        sql = "UPDATE Client SET nom = %s WHERE num_tel = %i; " % (_nom, _searchnumtel)
 
-	elif update == 3 :
-		prenom = quote(input("Entrez le nouveau prenom"))
-		sql = "UPDATE Client SET prenom = %s WHERE num_tel = %i" % (prenom, searchnumtel)
+    elif update == 3 :
+        _prenom = quote(input("Entrez le nouveau prenom"))
+        sql = "UPDATE Client SET prenom = %s WHERE num_tel = %i;" % (_prenom, _searchnumtel)
 
-	elif update == 4 :
-		annee = int(input("Entrez l'annee de naissance"))
-        	mois = int(input("Entrez le mois de naissance"))
-        	jour = int(input("Entrez le jour de naissance"))
-		date_de_naissance = datetime.date(annee, mois, jour)
-		sql = "UPDATE Client SET date_de_naissance = %s WHERE num_tel = %i" % (date_de_naissance, searchnumtel)
+    elif update == 4 :
+        _annee = int(input("Entrez l'annee de naissance"))
+        _mois = int(input("Entrez le mois de naissance"))
+        _jour = int(input("Entrez le jour de naissance"))
+        _date_de_naissance = quote(datetime.date(_annee, _mois, _jour))
+        sql = "UPDATE Client SET date_de_naissance = %s WHERE num_tel = %i;" % (_date_de_naissance, _searchnumtel)
 
-	elif update == 5 :
-		adresse = quote(input("Entrez la nouvelle adresse"))
-		sql = "UPDATE Client SET adresse = %s WHERE num_tel = %i" % (adresse,nsearchnumtel)
+    elif update == 5 :
+        _adresse = quote(input("Entrez la nouvelle adresse"))
+        sql = "UPDATE Client SET adresse = %s WHERE num_tel = %i;" % (_adresse, _searchnumtel)
 
-	cur.execute(sql)
-    	conn.commit()
+    cur.execute(sql)
+    conn.commit()

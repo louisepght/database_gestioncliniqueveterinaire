@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS SPEASSIS, SPEVETO, PROCEDURE, ANALYSES, TAILLE, POIDS, POSOLOGIE, EST_AUTORISE, TRAITEMENT, MEDICAMENT, CONSULTATION, PATIENT, ESPECE, SUIVI_PROPRIETAIRE, SUIVI_VETERINAIRE, ASSISTANT, VETERINAIRE, CLIENT, DOSSIER_MEDICAL CASCADE;
+
+
 CREATE TABLE Client (
     num_tel VARCHAR(10),
     nom VARCHAR NOT NULL,
@@ -22,7 +25,7 @@ CREATE TABLE Dossier_medical(
 );
 
 CREATE TABLE Patient (
-    Idp INTEGER,
+    Idp SERIAL,
     nom VARCHAR NOT NULL,
     date_naissance VARCHAR,
     num_puce VARCHAR(8), 
@@ -53,12 +56,13 @@ CREATE TABLE Veterinaire (
 );
 
 CREATE TABLE Traitement (
-    IdT INTEGER PRIMARY KEY, 
+    IdT SERIAL, 
     date_debut DATE NOT NULL, 
     duree INTEGER NOT NULL, 
     date_heure_saisie TIMESTAMP, 
     prescrit_par VARCHAR NOT NULL, 
     dossier INTEGER,
+	PRIMARY KEY(IdT),
     FOREIGN KEY (prescrit_par) REFERENCES Veterinaire(num_telephone),
     FOREIGN KEY (dossier) REFERENCES Dossier_medical(Id)
 );
@@ -107,7 +111,7 @@ CREATE TABLE Consultation (
 );
 
 CREATE TABLE Taille (
-    numero INTEGER,
+    numero SERIAL,
     mesure NUMERIC(3,1)NOT NULL, 
     date_heure_saisie TIMESTAMP NOT NULL, 
     dossier_medical INTEGER REFERENCES Dossier_medical(Id), 
@@ -116,7 +120,7 @@ CREATE TABLE Taille (
 );
 
 CREATE TABLE Poids (
-    numero INTEGER,
+    numero SERIAL,
     mesure NUMERIC(3,1) NOT NULL,
     date_heure_saisie date NOT NULL,
     dossier_medical INTEGER REFERENCES Dossier_medical(Id),
@@ -189,4 +193,16 @@ CREATE TABLE Speassis (
 
 );
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,8 +1,7 @@
-<<<<<<< HEAD
+#!/usr/bin/python3
 import psycopg2
 import datetime
-
-import client
+from client import creer_client
 
 def quote(s):
     if s:
@@ -11,172 +10,186 @@ def quote(s):
         return 'NULL'
 
 def afficher_patient(conn): 
-    i = int(input("Sur quel critère voulez-vous afficher les patients? 1 si vous voulez afficher tous les patients, 2 si vous voulez afficher une espèce en particulier, 3 si vous voulez affichier les patients d'un proprietaire")) 
+    cur = conn.cursor()
+    i = int(input("Sur quel critÃ¨re voulez-vous afficher les patients? \n 1 pour tous les patients, 2 pour une espÃ¨ce en particulier, 3 pour les patients d'un proprietaire : ")) 
     if i == 1:
-		try:
-			cur = conn.cursor()
-			sql = "SELECT * FROM Patient"
-	if i == 2:
-		try:
-			espece = quote(input("Entrez le nom d'espece"))
-			cur = conn.cursor()
-			sql = "SELECT * FROM Patient WHERE espece = %s" % (espece)
-	if i == 3:
-		try:
-			proprietaire = quote(input("Entrez le nom d'un proprietaire"))
-			cur = conn.cursor()
-			sql = "SELECT * FROM Patient WHERE proprietaire = %s" % (proprietaire)
-    cur.execute(sql)
-    res = cur.fetchall() 
-    i= 0
-    while res : 
-        print(res[i])
-        i +=1
+       try:           
+            sql = "SELECT * FROM Patient;"
+       except psycopg2.IntegrityError as e : 
+            conn.rollback()
+            print("Message systÃ¨me :", e)
 
-def afficher_dossier_patient(conn):
-	i = int(input("Entrez le numéro de son dossier médical")) 
-	try:
-		cur = conn.cursor()
-		sql_traitement = "SELECT * FROM Traitement WHERE dossier = %s" (dossier)
-		sql_consultation = "SELECT * FROM Consultation WHERE dossier = %s" (dossier)
-		sql_taille = "SELECT * FROM Taille WHERE dossier_medical = %s" (dossier)
-		sql_poids = "SELECT * FROM Poids WHERE dossier_medical = %s" (dossier)
-		sql_analyses = "SELECT * FROM Analyses WHERE dossier_medical = %s" (dossier)
-    		cur.execute(sql_traitement)
-    		res = cur.fetchall() 
-    		i= 0
-    		while res : 
-        		print(res[i])
-        		i +=1
-    		cur.execute(sql_consultation)
-    		res = cur.fetchall() 
-    		i= 0
-    		while res : 
-        		print(res[i])
-        		i +=1
-   		cur.execute(sql_taille)
-    		res = cur.fetchall() 
-    		i= 0
-    		while res : 
-        		print(res[i])
-        		i +=1
-    		cur.execute(sql_poids)
-    		res = cur.fetchall() 
-    		i= 0
-    		while res : 
-        		print(res[i])
-        		i +=1
-    		cur.execute(sql_analyses)
-    		res = cur.fetchall() 
-    		i= 0
-    		while res : 
-        		print(res[i])
-        		i +=1
-
-def creer_patient(conn) :  
-	i = int(input("Etes vous sûr de vouloir créer un patient? 1 pour oui, 0 pour non"))
-	if i == 0 : 
-        return
-	if i == 1 : 
-		try :
-		ii = int(input("Le propriétaire est-il déjà client de la clinique ?1 pour oui, 0 pour non"))
-		if ii == 0:
-			creer_client(conn)
-		if i == 1 :
-			nom? = quote(input("Entrez le nom du patient"))
-			date_naissance = "inconnue"
-			espece = quote(input("Entrez l'espèce à laquelle appartient le patient"))
-			espece_taille = quote(input("Entrez la taille de l'espèce à laquelle appartient le patient"))
-			sql = "INSERT INTO Patient(idp?,? ?nom?,? date_naissance?,? ?espece, espece_taille?) VALUES (default, %s, %s, %s, %s)" % (?nom?,? ??date_naissance?,? espece, espece_taille?)
-		cur.execute(sql)
-		conn.commit(à
+    elif i == 2:
+        
+        try:
+            _espece = quote(input("Entrez le nom d'espece : "))
+            sql = "SELECT * FROM Patient WHERE espece = %s;" % (_espece)
+        
         except psycopg2.IntegrityError as e : 
             conn.rollback()
-            print("Message système :", e)
+            print("Message systÃ¨me :", e)
 
-        print("Le patient a bien été ajouté.")
+    elif i == 3:
+        try:
+            _proprietaire = quote(input("Entrez le nom d'un proprietaire : "))
+            sql = "SELECT * FROM Patient WHERE proprietaire = %s;" % (_proprietaire)
+        except psycopg2.IntegrityError as e : 
+            conn.rollback()
+            print("Message systÃ¨me :", e)
+    
+    cur.execute(sql)
+    res = cur.fetchall() 
+    for resultat in res : 
+        print(resultat)
+    
+
+def afficher_dossier_patient(conn):
+    _dossier = quote(input("Entrez l'identifiant du dossier mÃ©dical : ")) 
+    sql_traitement = "SELECT * FROM Traitement WHERE dossier = %s;"%(_dossier)
+    sql_consultation = "SELECT * FROM Consultation WHERE dossier = %s;"%(_dossier)
+    sql_taille = "SELECT * FROM Taille WHERE dossier_medical = %s;"%(_dossier)
+    sql_poids = "SELECT * FROM Poids WHERE dossier_medical = %s;"%(_dossier)
+    sql_analyses = "SELECT * FROM Analyses WHERE dossier_medical = %s;"%(_dossier)
+    
+    cur = conn.cursor()
+    
+    try:
+        cur.execute(sql_traitement)
+        res = cur.fetchall() 
+        for resultat in res : 
+            print(resultat)
+            
+    except psycopg2.IntegrityError as e : 
+        conn.rollback()
+        print("Message systÃ¨me :", e)
+
+    try:
+        cur.execute(sql_consultation)
+        res = cur.fetchall() 
+        for resultat in res : 
+            print(resultat)
+            
+    except psycopg2.IntegrityError as e : 
+        conn.rollback()
+        print("Message systÃ¨me :", e)  
+
+    try:
+        cur.execute(sql_taille)
+        res = cur.fetchall() 
+        for resultat in res : 
+            print(resultat)
+            
+    except psycopg2.IntegrityError as e : 
+        conn.rollback()
+        print("Message systÃ¨me :", e)  
+
+    try:
+        cur.execute(sql_poids)
+        res = cur.fetchall() 
+        for resultat in res : 
+            print(resultat)
+            
+    except psycopg2.IntegrityError as e : 
+        conn.rollback()
+        print("Message systÃ¨me :", e)  
+
+    try:
+        cur.execute(sql_analyses)
+        res = cur.fetchall() 
+        for resultat in res : 
+            print(resultat)
+         
+    except psycopg2.IntegrityError as e : 
+        conn.rollback()
+        print("Message systÃ¨me :", e)  
+
+
+def creer_patient(conn) :  
+    i = int(input("Votre patient a-t-il un propriÃ©taire ? 1 pour oui, 0 pour non : "))
+    cur = conn.cursor()
+    _nom = quote(input("Entrez le nom du patient : "))
+    _date_naissance = quote(input("Entrez la date naissance du patient, l'annÃ©e de naissance ou inconnue : "))
+    _espece = quote(input("Entrez l'espÃ¨ce Ã  laquelle appartient le patient : "))
+    _espece_taille = quote(input("Entrez la taille de l'espÃ¨ce Ã  laquelle appartient le patient : "))
+    
+    if i == 0 : 
+        sql = "INSERT INTO Patient(nom, date_naissance, espece, espece_taille) VALUES (%s, %s, %s, %s);" % (_nom, _date_naissance, _espece, _espece_taille)
+    if i == 1 : 
+        try :
+            ii = int(input("Le propriÃ©taire est-il dÃ©jÃ  client de la clinique ? 1 pour oui, 0 pour non : "))
+            if ii == 0:
+                _tel = creer_client(conn)   
+            else :   
+                _tel = quote(input("Quel est le numero de tÃ©lÃ©phone du client ? "))
+			
+            sql = "INSERT INTO Patient(nom, date_naissance, espece, espece_taille,proprietaire) VALUES (%s, %s, %s, %s, %s);" % (_nom, _date_naissance, _espece, _espece_taille,_tel)
+            cur.execute(sql)
+            
+            #On rÃ©cupÃ¨re l'ID du nouveau patient            
+            sql_ID = "SELECT MAX(IdP) FROM Patient;" 
+            cur.execute(sql_ID)
+            res = cur.fetchone()
+            _numero = int(res[0])
+            _idP = quote(_numero)
+			
+            #On initialise un nouveau dossier avec l'ID du nouveau patient
+            sql_num = "INSERT INTO Dossier_medical VALUES (%i);"%(_numero)
+            cur.execute(sql_num)
+			
+            #On ajoute le numÃ©ro de dossier
+            sql_update = "UPDATE Patient SET dossier_medical = %i WHERE IdP=%s;"%(_numero, _idP) #On ajoute le numÃ©ro de dossier
+            cur.execute(sql_update)
+			
+            conn.commit()
+            print("Le patient a bien Ã©tÃ© ajoutÃ©.")
+            
+        except psycopg2.IntegrityError as e : 
+            conn.rollback()
+            print("Message systÃ¨me :", e)
 
     else : 
-        print("Vous vous êtes trompé.")
+        print("Vous vous Ãªtes trompÃ©.")
         return creer_patient(conn)
 
 
 def modifier_patient(conn) : 
-	cur = conn.cursor() 
-	idp = int(input("Entrez le numéro d'identifiant du patient à modifier."))
-	update = int(input("Que voulez vous mettre à jour?\n 1 date_naissance, 2 num_puce, 3 num_passeport, 4 propriétaire"))
-    
-	if update == 1 : 
-		date_naissance = quote(input("Entrez la nouvelle date de naissance"))
-		try:
-			sql = "UPDATE Patient SET date_naissance = %s WHERE idp = %i" % (date_naissance, idp)
-		except psycopg2.IntegrityError as e : 
-			conn.rollback()
-			print("Message système :", e)
+    cur = conn.cursor() 
+    _idp = quote(input("Entrez le numÃ©ro d'identifiant du patient Ã  modifier : "))
+    update = int(input("Que voulez vous mettre Ã  jour?\n 1 date_naissance, 2 num_puce, 3 num_passeport, 4 propriÃ©taire : "))
 
-	elif update == 2 : 
-        	num_puce = quote(input("Entrez le nouveau numéro de puce"))
-        	try:
-			sql = "UPDATE Patien SET num_puce = %s WHERE idp = %i" % (num_puce, idp)
-		except psycopg2.IntegrityError as e : 
-            	conn.rollback()
-            	print("Message système :", e)
-    
-	elif update == 3 : 
-		num_passeport = quote(input("Entrez le nouveau numéro de passeport"))
-		try:
-			sql = "UPDATE Patient SET num_passeport = %s WHERE idp = %i" % (num_passeport, idp)
-		except psycopg2.IntegrityError as e : 
-            	conn.rollback()
-            	print("Message système :", e)
+    if update == 1 : 
+        _date_naissance = quote(input("Entrez la nouvelle date de naissance : "))
+        try:
+            sql = "UPDATE Patient SET date_naissance = %s WHERE idp = %s;" % (_date_naissance, _idp)
+        except psycopg2.IntegrityError as e : 
+            conn.rollback()
+            print("Message systÃ¨me :", e)
 
-	elif update == 4 : 
-		proprietaire = int(input("Entrez le nouveau numéro de téléphone du propriétaire"))
-        	try:
-			sql = "UPDATE Patient SET proprietaire = %s WHERE idp = %i" % (proprietaire, idp)
-		except psycopg2.IntegrityError as e : 
-            	conn.rollback()
-            	print("Message système :", e)
-		
-    	cur.execute(sql)
-    	conn.commit()
-=======
-import psycopg2
-import datetime
+    elif update == 2 : 
+        _num_puce = quote(input("Entrez le nouveau numÃ©ro de puce : "))
+        try:
+            sql = "UPDATE Patient SET num_puce = %s WHERE idp = %s;" % (_num_puce, _idp)
+        except psycopg2.IntegrityError as e : 
+            conn.rollback()
+            print("Message systÃ¨me :", e)
+
+    elif update == 3 : 
+        _num_passeport = quote(input("Entrez le nouveau numÃ©ro de passeport : "))
+        try:
+            sql = "UPDATE Patient SET num_passeport = %s WHERE idp = %s;" % (_num_passeport, _idp)
+        except psycopg2.IntegrityError as e : 
+            conn.rollback()
+            print("Message systÃ¨me :", e)
+
+    elif update == 4 : 
+        _proprietaire = quote(input("Entrez le nouveau numÃ©ro de tÃ©lÃ©phone du propriÃ©taire : "))
+        try:
+            sql = "UPDATE Patient SET proprietaire = %s WHERE idp = %s;" % (_proprietaire, _idp)
+        except psycopg2.IntegrityError as e : 
+            conn.rollback()
+            print("Message systÃ¨me :", e)
+
+    cur.execute(sql)
+    conn.commit()
 
 
-def quote(s):
-    if s:
-        return '\'%s\'' % s
-    else:
-        return 'NULL'
-
-def afficher_patient(conn):
-	i = int(input("Sur quel critere voulez-vous afficher les patients? 1 si vous voulez afficher tous les patients, 2 si vous voulez afficher une espece en particulier, 3 si vous voulez afficher les patients d'un proprietaire"))
-	try:
-		if i == 1:
-   			cur = conn.cursor()
-   			sql = "SELECT * FROM Patient"
-
-		elif i == 2:
-   		 	_espece = quote(input("Entrez le nom d'espece"))
-   		 	cur = conn.cursor()
-   		 	sql = "SELECT * FROM Patient WHERE espece = %s" % (_espece)
-
-
-		elif i == 3:
-   		 	_proprietaire = quote(input("Entrez le nom d'un proprietaire"))
-   		 	cur = conn.cursor()
-   		 	sql = "SELECT * FROM Patient WHERE proprietaire = %s" % (_proprietaire)
-
-		cur.execute(sql)
-		
-	except psycopg2.IntegrityError as e :
-			print("Message systeme :", e)
-
-	res = cur.fetchall()
-	i = 0
-	while res :
-    		print(res[i])
-    		i +=1
->>>>>>> 0d4c443f9fdcffe9fc1eb5684f8c5aa9f2eacb26
