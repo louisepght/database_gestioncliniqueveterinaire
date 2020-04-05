@@ -114,7 +114,7 @@ INSERT INTO Medicament (nom_molecule, effets)
 VALUES ('Paracétamol','fluidifie le sang'),
 ('Chloroquine','stimule les battements cardiaques'),
 ('Ibuprofène','calme les douleurs'),
-('Anti-puce','purifie les muqueuses'),
+('Citalopram','purifie les muqueuses'),
 ('Tymol', 'facilite le transit'),
 ('Pyridine','augmente les anticorps');
 
@@ -123,7 +123,7 @@ VALUES ('Paracétamol', 'oiseau','petite'),
 ('Paracétamol', 'canidé', 'petite'),
 ('Tymol', 'félin', 'moyenne'),
 ('Ibuprofène', 'félin', 'petite'),
-('Anti-puce', 'canidé', 'moyenne'),
+('Citalopram', 'canidé', 'moyenne'),
 ('Chloroquine', 'reptile','petite');
 
 
