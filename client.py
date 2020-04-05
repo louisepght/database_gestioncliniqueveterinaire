@@ -55,29 +55,25 @@ def afficher_client(conn):
 
 def modifier_client(conn) :
     cur = conn.cursor()
-    update = int(input("Que voulez vous mettre a jour?\n 1 num_tel, 2 nom, 3 prenom, 4 date_de_naissance, 5 adresse"))
+    update = int(input("Que voulez vous mettre a jour?\n 1 nom, 2 prenom, 3 date_de_naissance, 4 adresse"))
     _searchnumtel = int(input("Entrez le numero de telephone appartenant au client a modifier."))
 
-    if update == 1 :
-        _num_tel = quote(input("Entrez le nouveau numero de telephone"))
-        sql = "UPDATE Client SET num_tel = %i WHERE num_tel = %i" % (_num_tel, _searchnumtel)
-
-    elif update == 2 :
+    if  update == 1 :
         _nom = quote(input("Entrez le nouveau nom"))
         sql = "UPDATE Client SET nom = %s WHERE num_tel = %i; " % (_nom, _searchnumtel)
 
-    elif update == 3 :
+    elif update == 2 :
         _prenom = quote(input("Entrez le nouveau prenom"))
         sql = "UPDATE Client SET prenom = %s WHERE num_tel = %i;" % (_prenom, _searchnumtel)
 
-    elif update == 4 :
+    elif update == 3 :
         _annee = int(input("Entrez l'annee de naissance"))
         _mois = int(input("Entrez le mois de naissance"))
         _jour = int(input("Entrez le jour de naissance"))
         _date_de_naissance = quote(datetime.date(_annee, _mois, _jour))
         sql = "UPDATE Client SET date_de_naissance = %s WHERE num_tel = %i;" % (_date_de_naissance, _searchnumtel)
 
-    elif update == 5 :
+    elif update == 4 :
         _adresse = quote(input("Entrez la nouvelle adresse"))
         sql = "UPDATE Client SET adresse = %s WHERE num_tel = %i;" % (_adresse, _searchnumtel)
 
