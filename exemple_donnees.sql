@@ -28,16 +28,22 @@ VALUES ('01'),
 ('03'),
 ('04'),
 ('05'),
-('06');
+('06'),
+('07'),
+('08'),
+('09'),
+('10'),
+('11'),
+('12');
 
 
 INSERT INTO Patient (Idp, nom, date_naissance, num_puce, num_passeport, espece, espece_taille, proprietaire, dossier_medical)
-VALUES (DEFAULT, 'Fifou', 'inconnue',NULL, 'FRAA59790201', 'félin', 'moyenne', '0698723654', '01'),
-(DEFAULT, 'Bulby', 'inconnue','87602100', NULL, 'oiseau','petite', '0667221257', '02'),
-(DEFAULT, 'Nemo', 'inconnue','87602130', NULL, 'félin','petite', '0787636584', '03'),
-(DEFAULT, 'Caline', 'inconnue','87302130', '403060897856', 'félin','moyenne', '0787236520', '04'),
-(DEFAULT, 'Ruby', 'inconnue','87562130', '403060577856', 'rongeur','petite', '0667551457', '05'),
-(DEFAULT, 'Fofma', 'inconnue',NULL, NULL, 'reptile','petite', '0798723654', '06');
+VALUES ('01', 'Fifou', 'inconnue',NULL, 'FRAA59790201', 'félin', 'moyenne', '0698723654', '01'),
+('02', 'Bulby', 'inconnue','87602100', NULL, 'oiseau','petite', '0667221257', '02'),
+('04', 'Nemo', 'inconnue','87602130', NULL, 'félin','petite', '0787636584', '04'),
+('05', 'Caline', 'inconnue','87302130', '403060897856', 'félin','moyenne', '0787236520', '05'),
+('06', 'Ruby', 'inconnue','87562130', '403060577856', 'rongeur','petite', '0667551457', '06'),
+('03', 'Fofma', 'inconnue',NULL, NULL, 'reptile','petite', '0798723654', '03');
 
 
 INSERT INTO Veterinaire (num_telephone, nom, prenom, date_de_naissance, adresse)
@@ -50,12 +56,12 @@ VALUES ('0245728090', 'de Montfort', 'Paul-Étienne', '1955-08-29', 'Avenue du G
 
 
 INSERT INTO Traitement (IdT, date_debut, duree, date_heure_saisie, prescrit_par, dossier)
-VALUES (DEFAULT, '2018-05-05', '4', '2018-05-05, 13:00', '0245728090', '01'),
-(DEFAULT, '2019-05-06', '7', '2019-05-06, 15:48', '0245728091', '02'),
-(DEFAULT, '2019-05-07', '4', '2019-05-04, 16:48', '0245728051', '04'),
-(DEFAULT, '2019-05-08', '2', '2019-05-03, 15:58', '0245728092', '05'),
-(DEFAULT, '2019-05-09', '8', '2019-05-02, 15:49', '0245724591', '06'),
-(DEFAULT, '2019-05-15', '8', '2019-06-01, 09:10', '0245728090', '03');
+VALUES ('01', '2018-05-05', '4', '2018-05-05, 13:00', '0245728090', '01'),
+('02', '2019-05-06', '7', '2019-05-06, 15:48', '0245728091', '02'),
+('04', '2019-05-07', '4', '2019-05-04, 16:48', '0245728051', '04'),
+('05', '2019-05-08', '2', '2019-05-03, 15:58', '0245728092', '05'),
+('06', '2019-05-09', '8', '2019-05-02, 15:49', '0245724591', '06'),
+('03', '2019-05-15', '8', '2019-06-01, 09:10', '0245728090', '03');
 
 
 INSERT INTO Assistant (num_telephone, nom, prenom, date_de_naissance, adresse)
@@ -78,10 +84,7 @@ VALUES ('0698723654', '01', '2012-07-05', '2017-07-04'),
 INSERT INTO Suivi_veterinaire (patient, veterinaire, date_debut,date_fin)
 VALUES ('01', '0245728090', '2012-07-05', '2017-07-04'),
 ('02', '0245728091', '2020-02-01', '2020-04-01'),
-('03', '0245728092', '2018-12-01', '2020-01-01'),
-('04', '0245728092', '2018-12-01', CURRENT_DATE),
-('05', '0245728092', '2018-12-01', CURRENT_DATE),
-('06', '0245728092', '2018-12-01', CURRENT_DATE);
+('03', '0245728092', '2018-12-01', '2020-01-01');
 
 
 INSERT INTO Consultation(date, observation,date_heure_saisie, veterinaire, dossier)
@@ -91,13 +94,13 @@ VALUES ('2018-05-01', 'rien à signaler', '2018-05-04, 12:00', '0245728090', '01
 
 
 INSERT INTO Taille (numero, mesure, date_heure_saisie, dossier_medical)
-VALUES (DEFAULT, '80.3', '2018-05-05 18:00', '01'),
-(DEFAULT, '11.8', '2019-05-08 19:32', '02');
+VALUES ('01', '80.3', '2018-05-05 18:00', '01'),
+('02', '11.8', '2019-05-08 19:32', '02');
 
 
 INSERT INTO Poids (numero, mesure, date_heure_saisie, dossier_medical)
-VALUES (DEFAULT, '90.5', '2018-05-05, 18:05', '01'), 
-(DEFAULT, '62.7', '2019-05-06, 19:33', '02');
+VALUES ('01', '90.5', '2018-05-05, 18:05', '01'), 
+('02', '62.7', '2019-05-06, 19:33', '02');
 
 
 INSERT INTO Analyses (resultat, date_heure_saisie, dossier_medical)
@@ -110,7 +113,7 @@ INSERT INTO Medicament (nom_molecule, effets)
 VALUES ('Paracétamol','fluidifie le sang'),
 ('Chloroquine','stimule les battements cardiaques'),
 ('Ibuprofène','calme les douleurs'),
-('Citalopram','purifie les muqueuses'),
+('Anti-puce','purifie les muqueuses'),
 ('Tymol', 'facilite le transit'),
 ('Pyridine','augmente les anticorps');
 
@@ -119,7 +122,7 @@ VALUES ('Paracétamol', 'oiseau','petite'),
 ('Paracétamol', 'canidé', 'petite'),
 ('Tymol', 'félin', 'moyenne'),
 ('Ibuprofène', 'félin', 'petite'),
-('Citalopram', 'canidé', 'moyenne'),
+('Anti-puce', 'canidé', 'moyenne'),
 ('Chloroquine', 'reptile','petite');
 
 

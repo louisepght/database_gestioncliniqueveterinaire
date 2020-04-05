@@ -129,7 +129,7 @@ CREATE TABLE Poids (
 ); 
 
 CREATE TABLE Analyses (
-    resultat VARCHAR PRIMARY KEY,
+    resultat VARCHAR PRIMARY KEY NOT NULL,
     date_heure_saisie TIMESTAMP,
     dossier_medical INTEGER REFERENCES Dossier_medical(Id),
     CHECK (SUBSTR(resultat,1,8) ='https://')
