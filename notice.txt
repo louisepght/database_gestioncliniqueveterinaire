@@ -27,3 +27,9 @@ Voici les fonctionallités implémentées :
 	b - Puis, utilisez la commande GRANT USAGE, SELECT ALL ON SEQUENCES IN SCHEMA public TO *votre nom d'utilisateur* ;
 2- Exécutez sur votre base de données le script script.sql pour créer les tables, puis exemple_donnees.sql pour insérer les données
 3- Exécutez index.py avec python3
+
+### Utilisation du projet
+Pour lancer l'application Python:
+1- Placez tous les scripts python dans le même répertoire.
+2- Assurez-vous de rendre tous les scripts exécutables.
+3- Exécutez le script index.py .
